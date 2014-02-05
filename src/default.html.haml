@@ -2,7 +2,7 @@
 %html
   %head
     %meta{'http-equiv' => "X-UA-Compatible", 'content' => "IE=edge"}
-    %title 2050 Pathways Calculator
+    %title South Africa 2050 Pathways Calculator
     = stylesheet
     = javascript
     :javascript
@@ -28,7 +28,7 @@
 
     #topbar
       #name
-        %a{href:'http://www.decc.gov.uk/2050'} The UK 2050 Calculator
+        %a{href:'http://www.dec.gov.za/2050'} The South Africa 2050 Calculator
 
       #examples
         %a.newdropdown{href:'#', data: {dropdown: '#savedpathway_choices'}} Examples
@@ -75,8 +75,6 @@
       #other
         %table
           = classic_table_row_for_choice structure.geosequestration_choice
-
-        %table
           = classic_table_row_for_choice structure.balancing_choice
     #tooltip
     #footer

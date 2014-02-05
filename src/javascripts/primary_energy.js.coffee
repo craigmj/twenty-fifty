@@ -100,7 +100,4 @@ class PrimaryEnergy
     @updateResults(@pathway)
 
 
-
-
-
 window.twentyfifty.views['primary_energy_chart'] = new PrimaryEnergy
