@@ -1,0 +1,12 @@
+
+$color-focus: #87aad3;
+$topbar-bgcolor: #b7c8c4;
+
+
+$color-help-button: #87aad3;	//#dbdbe3;
+
+$footer-color: $color-help-button;
+// $footer-bgcolor: $topbar-bgcolor;
+
+$tooltip-border: $topbar-bgcolor;
+$tooltip-bgcolor: lighten($topbar-bgcolor, 24%);

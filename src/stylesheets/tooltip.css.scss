@@ -1,12 +1,14 @@
+@import "inc_colors";
+
 #tooltip {
   display: none;
 
-  background-color: #FFFF00;
+  background-color: $tooltip-bgcolor;
   color: #000;
 
-  border: 2px solid #000;
-  border-radius: 15px 15px 0px 15px;
-  box-shadow: 0 0 5px #888;
+  border: 1px solid $tooltip-border;
+  border-radius: 0.6em 0.6em 0px 0.6em;
+  // box-shadow: 0 0 5px #888;
 
   font-size: 12px;
 

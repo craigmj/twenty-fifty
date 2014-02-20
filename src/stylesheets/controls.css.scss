@@ -1,3 +1,4 @@
+@import "inc_colors";
 #classic_controls {
   font-size: 0.72em;
   overflow: auto;
@@ -58,12 +59,12 @@
       a {
         text-align: center;
         display: block;
-        background-color: rgb(124, 136, 250);
-        border: solid rgb(124, 136, 250) 1px;
+        background-color: $color-help-button;
+        border: solid $color-help-button 1px;
         color: white;
         width: 100%;
         text-decoration: none;
-        // font-weight: bold;
+        font-weight: bold;
         // font-style: italic;
       }
     }

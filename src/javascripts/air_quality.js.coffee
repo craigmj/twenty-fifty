@@ -94,7 +94,7 @@ class AirQuality
     text.push " lower" if pathway.air_quality.low <= 100
     text.push " in 2050 compared to 2010."
     if pathway.air_quality.high > 100
-      text.push " Given the scope for adverse implications for air quality, if the UK were to adopt this pathway the Government  would develop a policy framweork that supported the innovation required to be at the bottom end of the range"
+      text.push " Given the scope for adverse implications for air quality, if the UK were to adopt this pathway the Government would develop a policy framweork that supported the innovation required to be at the bottom end of the range"
     $('#airqualitymessage').html(text.join(''))
 
-window.twentyfifty.views['air_quality'] = new AirQuality
+# window.twentyfifty.views['air_quality'] = new AirQuality

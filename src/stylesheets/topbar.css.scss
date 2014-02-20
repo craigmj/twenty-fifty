@@ -1,23 +1,54 @@
+@import "inc_colors";
+
 #topbar {
   position: relative;
   overflow: hidden;
   width: 100%;
   margin: 0 0 10px 0;
-  background-color: black;
+  background-color: $topbar-bgcolor;
   color: white;
-  border-bottom: solid #009ddb 3px;
-  
+  // border-bottom: solid $color-focus 1px;
+  padding: 0.4em 0.4em 0 0.4em;
+  // padding: 0.4em;
+
+  #zaflag {
+    float:left;
+    display: inline-block;
+    margin-right:0.5em;
+  }
+
+  .view {
+    padding: 0px 0.4em 0px 0.4em;
+    // border: 1px solid white;
+    margin: 0px 0.4em 0px 0.4em;
+    a {
+      color: white;
+      text-decoration: none;
+      &:hover {
+        border-bottom: 1px solid;
+      }
+    }
+  }
+
+  .selectedView {
+    background-color: white;
+    border-radius: 0.4em;
+    color: $color-focus;
+  }
+
+  .newdropdown {
+    padding: 0px 0.4em 0px 0.4em;
+    margin: 0px 0.4em 0px 0.4em;
+  }
+ 
+
   a {
     color: white;
     text-decoration: none;
   }
 
-  .selectedView {
-    color: #009ddb;
-  }
-
   a:hover {
-    text-decoration: underline;
+    border-bottom: 1px solid;
   }
 
   #name {
@@ -32,16 +63,10 @@
   }
 
   #views {
-    margin: 0 180px;
     text-align: center;
-
-    a {
-      padding-right: 10px;
-    }
   }
-  
-
 }
+
 .dropdown {
   z-index: 10000;
   position: absolute;
@@ -51,21 +76,23 @@
   box-shadow: 0 0 5px #888;
 
   a {
-    padding: 5px;
+    padding: 5px 5px 0px 5px;
     color: white;
     display: block;
     text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
+    border-bottom: 1px solid black;
+    &:hover {
+      border-bottom: 1px solid;
+    }
   }
 }
+
+// This needs to be at the root level for the dropdown to appear
+.showdropdown {
+  display: block;
+}   
 
 #savedpathway_choices {
   width: 200px;
 }
 
-.showdropdown {
-  display: block;
-}

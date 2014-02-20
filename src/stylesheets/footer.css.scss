@@ -1,6 +1,20 @@
+@import "inc_colors";
+
+body {
+	padding-bottom: 0px;
+}
+
 #footer {
-  clear: both;
-  padding-top: 20px;
   text-align: center;
   font-size: 0.72em;
+  color: $footer-color;
+  // background-color: $footer-bgcolor;
+  margin-bottom:0;
+  a {
+  	color: $color-focus;
+  	text-decoration: none;
+  	&:hover {
+  		border-bottom: 1px solid $color-focus;
+  	}
+  }
 }

@@ -29,13 +29,15 @@ class Map
   display_width = 1200
   display_height = 800
 
-  map_image_url = '/assets/images/uk.png'
-  map_width = 492
-  map_height = 725
-  map_offset_x = 150
+  map_image_url = '/assets/images/za.png'
+  map_width = 760
+  map_height = 651 
+  map_offset_x = 100 #150
   map_offset_y = 0
 
-  km = 0.69 # Pixels per km for coloured areas on map
+  #km = 0.69 # UK Model : Pixels per km for coloured areas on map
+  # On our map, 100km = 43px
+  km = 43 / 100  # Pixels per km for coloured areas on map
   m = km / 1000.0
   m2 = m * m
   ha = 10000 * m2
