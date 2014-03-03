@@ -13,20 +13,20 @@ class PrimaryEnergy
       .title("Final Energy Demand")
       .unit('TWh/yr')
       .total_label('Total')
-      .max_value(4000)
+      .max_value(12000)
 
     @primary_energy_chart = timeSeriesStackedAreaChart()
       .title("Primary Energy Supply")
       .unit('TWh/yr')
-      .total_label('Total used in UK')
-      .max_value(4000)
+      .total_label('Total used in ZA')
+      .max_value(18000)
 
     @emissions_chart = timeSeriesStackedAreaChart()
       .title("Greenhouse Gas Emissions")
       .unit('MtCO2e/yr')
       .total_label('Total')
       .min_value(-500)
-      .max_value(1000)
+      .max_value(2000)
 
   teardown: () ->
     $('#results').empty()

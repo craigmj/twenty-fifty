@@ -43,9 +43,9 @@
             %a.view{href:'#', data: {view: 'electricity'}} Electricity
             %a.view{href:'#', data: {view: 'energy_security'}} Security
             %a.view{href:'#', data: {view: 'sankey'}} Flows
-            %a.view{href:'#', data: {view: 'map'}} Map
+            / %a.view{href:'#', data: {view: 'map'}} Map
             %a.view{href:'#', data: {view: 'story'}} Story
-            %a.view{href:'#', data: {view: 'costs'}} Costs
+            / %a.view{href:'#', data: {view: 'costs'}} Costs
             / %a#cost_choice.newdropdown{href:'#', data: {dropdown: '#cost_choices'}} Costs
             // %a.view{href:'#', data: {view: 'air_quality'}} Air
             %a.view{href:'#', data: {view: 'share'}} Share
@@ -71,10 +71,12 @@
         #classic_controls
           #demand
             %table
+              %b Demand
               - structure.demand_choices.each do |choice|
                 = classic_table_row_for_choice choice
           #supply
             %table
+              %b Supply
               - structure.supply_choices.each do |choice|
                 = classic_table_row_for_choice choice
           #other
