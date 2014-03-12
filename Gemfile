@@ -12,8 +12,8 @@ gem 'coffee-script'
 
 # Model
 gem 'ffi'
-#gem 'decc_2050_model', "3.5.1pre"
+gem 'decc_2050_model', "3.5.1pre"
 #gem 'decc_2050_za_model', "3.5.1pre"
-gem 'decc_2050_model', "0.60.20140228pre"
+#gem 'decc_2050_model', "0.60.20140228pre"
 #gem 'decc_2050_model', :git => '../decc_2050_model', :branch => 'master'
 
