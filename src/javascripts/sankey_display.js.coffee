@@ -1,15 +1,16 @@
 class SankeyDisplay
   
   name_conversions =
-    "UK land based bioenergy":"Forests & biocrops"
-    "Bio-conversion":"Biomass processing"
-    "H2 conversion":"Hydrogen production"
     "H2":"Hydrogen"
-    "Useful district heat":"Delivered heat"
-    "Heating and cooling - homes":"Home heating & cooling"
-    "Heating and cooling - commercial":"Office heating & cooling"
-    "Lighting & appliances - homes":"Home lighting & appliances"
-    "Lighting & appliances - commercial":"Office lighting & appliances"
+    # "UK land based bioenergy":"Forests & biocrops"
+    # "Bio-conversion":"Biomass processing"
+    # "H2 conversion":"Hydrogen production"
+    # "H2":"Hydrogen"
+    # "Useful district heat":"Delivered heat"
+    # "Heating and cooling - homes":"Home heating & cooling"
+    # "Heating and cooling - commercial":"Office heating & cooling"
+    # "Lighting & appliances - homes":"Home lighting & appliances"
+    # "Lighting & appliances - commercial":"Office lighting & appliances"
 
   convert_name = (name) ->
     name_conversions[name] || name
@@ -26,8 +27,9 @@ class SankeyDisplay
       @s.setData(data)
       @s.draw()
       @drawn = true
-    max_y = @s.boxes['Losses'].b()
+    # max_y = @s.boxes['Losses'].b()
     # console.log max_y
+    max_y = 700
     if $('#sankey').height() < max_y
       $('#sankey').height(max_y)
       @s.r.setSize($('#sankey').width(),max_y)
@@ -42,131 +44,139 @@ class SankeyDisplay
     $('#results').append("<div id='sankey'></div>")
 
     @s = new Sankey()
-    
-    @s.stack(0,[
-      "Pumped heat",
-      "Solar",
-      "Wind",
-      "Tidal",
-      "Wave",
-      "Geothermal",
-      "Hydro",
-      "Electricity imports",
-      "Nuclear",
-      "Coal reserves",
-      "Coal imports",
-      "Biomass imports",
-      "Oil reserves",
-      "Oil imports",
-      "Biofuel imports",
-      "Gas reserves",
-      "Gas imports",
-      "UK land based bioenergy",
-      "Agricultural 'waste'",
-      "Other waste",
-      "Marine algae"
-    ])
-    
-    @s.stack(1,["Coal"],"Coal reserves")
-    @s.stack(1,["Oil"],"Oil reserves")
-    @s.stack(1,["Natural Gas"],"Gas reserves")
-    @s.stack(1,["Bio-conversion"],"UK land based bioenergy")
-    
-    @s.stack(2,["Solar Thermal", "Solar PV"],"Solar")
-    @s.stack(2,[
-      "Solid",
-      "Liquid",
-      "Gas"
-    ],"Coal")
-    
-    @s.stack(3,[
-      "Thermal generation",
-      "CHP"
-    ],"Nuclear")
-    
-    @s.stack(4,["Electricity grid","District heating"],"Wind")
-    
-    @s.stack(5,["H2 conversion"],"Electricity grid")
-    
-    @s.stack(6,["H2"],"H2 conversion")
-    
-    @s.stack(7,[
-      "Heating and cooling - homes",
-      "Heating and cooling - commercial",
-      "Lighting & appliances - homes",
-      "Lighting & appliances - commercial",
-      "Industry",
-      "Road transport",
-      "Rail transport",
-      "Domestic aviation",
-      "International aviation",
-      "National navigation",
-      "International shipping",
-      "Agriculture",
-      "Geosequestration",
-      "Over generation / exports",
-      #"Exports",
-      "Losses"
-    ])
-    
-    # Nudge
-    @s.nudge_boxes_callback = () ->
-      this.boxes["Losses"].y =  this.boxes["Marine algae"].b() - this.boxes["Losses"].size()
-      # @s.boxes["Exports"].y =  @s.boxes["Losses"].y - @s.boxes["Exports"].size() - y_space)
-      # @s.boxes["Over generation / exports"].y =  @s.boxes["Exports"].y - @s.boxes["Over generation / exports"].size() - y_space)
-    
-    # Colours
-    @s.setColors({
-      "Coal reserves":"#8F6F38",
-      "Coal":"#8F6F38", 
-      "Coal imports":"#8F6F38",
 
-      "Oil reserves":"#A99268", 
-      "Oil":"#A99268", 
-      "Oil imports":"#A99268", 
+    @s.stack(0, ["Biofuel imports", "Electricity imports", "Hydro", "Coal reserves", "Gas imports", "Biomass", "Oil imports", "Gas reserves", "Agricultural 'waste'", "Solar", "Nuclear", "Wind"])
+    @s.stack(1, ["Bio-conversion", "Liquid", "Electricity grid", "Coal", "Gas", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Industry", "Oil", "Electricity end use", "Thermal generation"])
+    @s.stack(2, ["Solid", "Liquid", "Coal to Liquid", "H2 conversion", "Gas to Liquid", "Over generation / exports", "Thermal generation", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport"])
+    @s.stack(3, ["Liquid", "Over generation / exports", "Thermal generation", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport", "H2", "Losses", "Commercial cooling and heating"])
+    @s.stack(4, ["Road transport", "Passenger transport", "Electricity grid", "Losses"])
+    @s.stack(5, ["Electricity grid", "Gas to Liquid"])
+    @s.stack(6, ["Coal to Liquid", "Gas to Liquid", "Over generation / exports", "Losses", "H2 conversion", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial cooling and heating", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport", "Liquid"])
 
-      "Gas reserves":"#DDD4C4", 
-      "Natural Gas":"#DDD4C4", 
-      "Gas imports":"#DDD4C4", 
+    # @s.stack(0,[
+    #   "Pumped heat",
+    #   "Solar",
+    #   "Wind",
+    #   "Tidal",
+    #   "Wave",
+    #   "Geothermal",
+    #   "Hydro",
+    #   "Electricity imports",
+    #   "Nuclear",
+    #   "Coal reserves",
+    #   "Coal imports",
+    #   "Biomass imports",
+    #   "Oil reserves",
+    #   "Oil imports",
+    #   "Biofuel imports",
+    #   "Gas reserves",
+    #   "Gas imports",
+    #   "UK land based bioenergy",
+    #   "Agricultural 'waste'",
+    #   "Other waste",
+    #   "Marine algae"
+    # ])
+    
+    # @s.stack(1,["Coal"],"Coal reserves")
+    # @s.stack(1,["Oil"],"Oil reserves")
+    # @s.stack(1,["Natural Gas"],"Gas reserves")
+    # @s.stack(1,["Bio-conversion"],"UK land based bioenergy")
+    
+    # @s.stack(2,["Solar Thermal", "Solar PV"],"Solar")
+    # @s.stack(2,[
+    #   "Solid",
+    #   "Liquid",
+    #   "Gas"
+    # ],"Coal")
+    
+    # @s.stack(3,[
+    #   "Thermal generation",
+    #   "CHP"
+    # ],"Nuclear")
+    
+    # @s.stack(4,["Electricity grid","District heating"],"Wind")
+    
+    # @s.stack(5,["H2 conversion"],"Electricity grid")
+    
+    # @s.stack(6,["H2"],"H2 conversion")
+    
+    # @s.stack(7,[
+    #   "Heating and cooling - homes",
+    #   "Heating and cooling - commercial",
+    #   "Lighting & appliances - homes",
+    #   "Lighting & appliances - commercial",
+    #   "Industry",
+    #   "Road transport",
+    #   "Rail transport",
+    #   "Domestic aviation",
+    #   "International aviation",
+    #   "National navigation",
+    #   "International shipping",
+    #   "Agriculture",
+    #   "Geosequestration",
+    #   "Over generation / exports",
+    #   #"Exports",
+    #   "Losses"
+    # ])
+    
+    # # Nudge
+    # @s.nudge_boxes_callback = () ->
+    #   this.boxes["Losses"].y =  this.boxes["Marine algae"].b() - this.boxes["Losses"].size()
+    #   # @s.boxes["Exports"].y =  @s.boxes["Losses"].y - @s.boxes["Exports"].size() - y_space)
+    #   # @s.boxes["Over generation / exports"].y =  @s.boxes["Exports"].y - @s.boxes["Over generation / exports"].size() - y_space)
+    
+    # # Colours
+    # @s.setColors({
+    #   "Coal reserves":"#8F6F38",
+    #   "Coal":"#8F6F38", 
+    #   "Coal imports":"#8F6F38",
 
-      "Solar":"#F6FF00", 
-      "Solar Thermal":"#F6FF00",
-      "Solar PV":"#F6FF00",
+    #   "Oil reserves":"#A99268", 
+    #   "Oil":"#A99268", 
+    #   "Oil imports":"#A99268", 
 
-      "UK land based bioenergy":"#30FF00", 
-      "Bio-conversion":"#30FF00", 
-      "Marine algae":"#30FF00", 
-      "Agricultural 'waste'":"#30FF00", 
-      "Other waste":"#30FF00", 
-      "Biomass imports":"#30FF00", 
-      "Biofuel imports":"#30FF00", 
+    #   "Gas reserves":"#DDD4C4", 
+    #   "Natural Gas":"#DDD4C4", 
+    #   "Gas imports":"#DDD4C4", 
 
-      "Solid":"#557731", 
-      "Liquid":"#7D9763", 
-      "Gas":"#BCC2AD", 
+    #   "Solar":"#F6FF00", 
+    #   "Solar Thermal":"#F6FF00",
+    #   "Solar PV":"#F6FF00",
 
-      "Electricity grid":"#0000FF",
-      "Thermal generation":"#0000FF", 
-      "CHP":"#FF0000", 
-      "Nuclear":"#E2ABDB", 
+    #   "UK land based bioenergy":"#30FF00", 
+    #   "Bio-conversion":"#30FF00", 
+    #   "Marine algae":"#30FF00", 
+    #   "Agricultural 'waste'":"#30FF00", 
+    #   "Other waste":"#30FF00", 
+    #   "Biomass imports":"#30FF00", 
+    #   "Biofuel imports":"#30FF00", 
 
-      "District heating":"#FF0000", 
-      "Pumped heat":"#FF0000", 
-      "Useful district heat":"#FF0000",
-      "CHP Heat":"#FF0000",
+    #   "Solid":"#557731", 
+    #   "Liquid":"#7D9763", 
+    #   "Gas":"#BCC2AD", 
 
-      "Electricity imports":"#0000FF", 
-      "Wind":"#C7E7E6", 
-      "Tidal":"#C7E7E6", 
-      "Wave":"#C7E7E6", 
-      "Geothermal":"#C7E7E6", 
-      "Hydro":"#C7E7E6", 
+    #   "Electricity grid":"#0000FF",
+    #   "Thermal generation":"#0000FF", 
+    #   "CHP":"#FF0000", 
+    #   "Nuclear":"#E2ABDB", 
 
-      "H2 conversion":"#FF6FCF", 
-      "Final electricity":"#0000FF", 
-      "Over generation / exports":"#0000FF", 
-      "H2":"#FF6FCF"
-    })
+    #   "District heating":"#FF0000", 
+    #   "Pumped heat":"#FF0000", 
+    #   "Useful district heat":"#FF0000",
+    #   "CHP Heat":"#FF0000",
+
+    #   "Electricity imports":"#0000FF", 
+    #   "Wind":"#C7E7E6", 
+    #   "Tidal":"#C7E7E6", 
+    #   "Wave":"#C7E7E6", 
+    #   "Geothermal":"#C7E7E6", 
+    #   "Hydro":"#C7E7E6", 
+
+    #   "H2 conversion":"#FF6FCF", 
+    #   "Final electricity":"#0000FF", 
+    #   "Over generation / exports":"#0000FF", 
+    #   "H2":"#FF6FCF"
+    # })
     
     # Add the emissions
     # @s.boxes["Thermal generation"].ghg = 100
@@ -177,11 +187,11 @@ class SankeyDisplay
     # Fix some of the colours
     @s.nudge_colours_callback = () ->
       # console.log @boxes["Electricity grid"].left_lines
-      @recolour(@boxes["Losses"].left_lines,"#ddd")
-      @recolour(@boxes["District heating"].left_lines,"#FF0000")
-      @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
+      # @recolour(@boxes["Losses"].left_lines,"#ddd")
+      # @recolour(@boxes["District heating"].left_lines,"#FF0000")
+      # @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
     
-    pixels_per_TWh = $('#sankey').height() / 6000
+    pixels_per_TWh = $('#sankey').height() / 40000
 
     @s.y_space = Math.round(100 * pixels_per_TWh)
     @s.right_margin = 250
