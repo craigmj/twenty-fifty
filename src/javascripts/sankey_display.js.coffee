@@ -17,9 +17,13 @@ class SankeyDisplay
   
   constructor: () ->
   
+  trimSankeyLabels: (data)->
+      ([d[0].trim(), d[1], d[2].trim()] for d in data)
+
   updateResults: (pathway) ->
     @setup() unless @s?
-    data = pathway.sankey
+    data = @trimSankeyLabels(pathway.sankey)
+    # data = pathway.sankey
     if @drawn == true
       @s.updateData(data)
       @s.redraw()
