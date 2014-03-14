@@ -20,6 +20,14 @@ class SankeyDisplay
   trimSankeyLabels: (data)->
       ([d[0].trim(), d[1], d[2].trim()] for d in data)
 
+  removeLiquidLoop: (data)->
+      res = []
+      for d in data
+          do (d)->
+              if d[0]!="Electricity grid" || (d[2]!="Gas to Liquid" && d[2]!="Coal to Liquid")
+                  res.push(d)
+      res
+
   updateResults: (pathway) ->
     @setup() unless @s?
     data = @trimSankeyLabels(pathway.sankey)
@@ -49,13 +57,15 @@ class SankeyDisplay
 
     @s = new Sankey()
 
-    @s.stack(0, ["Biofuel imports", "Electricity imports", "Hydro", "Coal reserves", "Gas imports", "Biomass", "Oil imports", "Gas reserves", "Agricultural 'waste'", "Solar", "Nuclear", "Wind"])
-    @s.stack(1, ["Bio-conversion", "Liquid", "Electricity grid", "Coal", "Gas", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Industry", "Oil", "Electricity end use", "Thermal generation"])
-    @s.stack(2, ["Solid", "Liquid", "Coal to Liquid", "H2 conversion", "Gas to Liquid", "Over generation / exports", "Thermal generation", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport"])
-    @s.stack(3, ["Liquid", "Over generation / exports", "Thermal generation", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport", "H2", "Losses", "Commercial cooling and heating"])
-    @s.stack(4, ["Road transport", "Passenger transport", "Electricity grid", "Losses"])
-    @s.stack(5, ["Electricity grid", "Gas to Liquid"])
-    @s.stack(6, ["Coal to Liquid", "Gas to Liquid", "Over generation / exports", "Losses", "H2 conversion", "Heating - homes", "Cooking and appliances - homes", "Water Heating - homes", "Commercial cooling and heating", "Commercial Lighting and appliances", "Industry", "Agriculture", "Passenger transport", "Freight transport", "Liquid"])
+    @s.stack(0, ["Coal reserves","Oil imports","Gas reserves","Gas imports","Agricultural 'waste'","Biofuel imports","Solar","Nuclear","Electricity imports","Wind","Hydro","Biomass"])
+    @s.stack(1, ["Coal","Oil","Gas","Bio-conversion","Electricity end use"])
+    @s.stack(2, ["Coal to Liquid","Solid","Gas to Liquid"])
+    @s.stack(3, ["Liquid"])
+    @s.stack(4, ["Thermal generation"])
+    @s.stack(5, ["Electricity grid"])
+    @s.stack(6, ["Over generation / exports","H2 conversion","Heating - homes","Cooking and appliances - homes","Water Heating - homes","Commercial cooling and heating","Commercial Lighting and appliances","Industry","Agriculture","Freight transport"])
+    @s.stack(7, ["Losses","H2"])
+    @s.stack(8, ["Road transport","Passenger transport"])
 
     # @s.stack(0,[
     #   "Pumped heat",
