@@ -102,22 +102,15 @@ func main() {
 
 	colorC := make(chan Color)
 	go func() {
-		// for s := 128; s < 256; s += 8 {
-		// 	for l := 128; l < 220; l += 32 {
-		// 		c := NewHSL(136, s, l)
-		// 		colorC <- c
-		// 	}
-		// }
-		for a := 0; a < 6; a++ {
-			for b := 0; b < 6; b++ {
-				blue := NewHSL(136, 255, 64)
-				green := NewHSL(68, 255, 42)
-				lightScale := 5
-				colorC <- &Mix{&Lighten{blue, lightScale * a}, &Lighten{green, lightScale * b}, 50}
+		for s := 0; s < 6; s++ {
+			for l := 0; l < 6; l ++ {
+				c := NewHSL(136 + 16*s, 16 + 32*s, 64 + l*24)
+				colorC <- c
 			}
 		}
 		close(colorC)
 	}()
+
 
 	for _, c := range cssClasses {
 		color := <-colorC
