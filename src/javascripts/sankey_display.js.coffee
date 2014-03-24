@@ -21,12 +21,13 @@ class SankeyDisplay
       ([d[0].trim(), d[1], d[2].trim()] for d in data)
 
   removeLiquidLoop: (data)->
-      res = []
-      for d in data
-          do (d)->
-              if d[0]!="Electricity grid" || (d[2]!="Gas to Liquid" && d[2]!="Coal to Liquid")
-                  res.push(d)
-      res
+      data
+      # res = []
+      # for d in data
+      #     do (d)->
+      #         if d[0]!="Electricity grid" || (d[2]!="Gas to Liquid" && d[2]!="Coal to Liquid")
+      #             res.push(d)
+      # res
 
   updateResults: (pathway) ->
     @setup() unless @s?
@@ -41,7 +42,8 @@ class SankeyDisplay
       @drawn = true
     # max_y = @s.boxes['Losses'].b()
     # console.log max_y
-    max_y = 700
+    max_y = 400
+    # console.log("max_y=", max_y, " and sankey.height()=", $('#sankey').height())
     if $('#sankey').height() < max_y
       $('#sankey').height(max_y)
       @s.r.setSize($('#sankey').width(),max_y)
@@ -60,12 +62,11 @@ class SankeyDisplay
     @s.stack(0, ["Coal reserves","Oil imports","Gas reserves","Gas imports","Agricultural 'waste'","Biofuel imports","Solar","Nuclear","Electricity imports","Wind","Hydro","Biomass"])
     @s.stack(1, ["Coal","Oil","Gas","Bio-conversion","Electricity end use"])
     @s.stack(2, ["Coal to Liquid","Solid","Gas to Liquid"])
-    @s.stack(3, ["Liquid"])
-    @s.stack(4, ["Thermal generation"])
-    @s.stack(5, ["Electricity grid"])
-    @s.stack(6, ["Over generation / exports","H2 conversion","Heating - homes","Cooking and appliances - homes","Water Heating - homes","Commercial cooling and heating","Commercial Lighting and appliances","Industry","Agriculture","Freight transport"])
-    @s.stack(7, ["Losses","H2"])
-    @s.stack(8, ["Road transport","Passenger transport"])
+    @s.stack(3, ["Liquid","Thermal generation"])
+    @s.stack(4, ["Electricity grid"])
+    @s.stack(5, ["Over generation / exports","Heating - homes","Cooking and appliances - homes","Water Heating - homes","Commercial Lighting and appliances","Industry","Agriculture","Freight transport","Losses in End use RES + COM","H2 conversion","Commercial cooling and heating"])
+    @s.stack(6, ["Losses","H2"])
+    @s.stack(7, ["Passenger transport","Road transport"])
 
     # @s.stack(0,[
     #   "Pumped heat",
@@ -140,9 +141,9 @@ class SankeyDisplay
     #   # @s.boxes["Over generation / exports"].y =  @s.boxes["Exports"].y - @s.boxes["Over generation / exports"].size() - y_space)
     
     # # Colours
-    # @s.setColors({
+    @s.setColors({
     #   "Coal reserves":"#8F6F38",
-    #   "Coal":"#8F6F38", 
+    #    "Coal":"#8F6F38", 
     #   "Coal imports":"#8F6F38",
 
     #   "Oil reserves":"#A99268", 
@@ -190,7 +191,7 @@ class SankeyDisplay
     #   "Final electricity":"#0000FF", 
     #   "Over generation / exports":"#0000FF", 
     #   "H2":"#FF6FCF"
-    # })
+    })
     
     # Add the emissions
     # @s.boxes["Thermal generation"].ghg = 100
@@ -205,7 +206,7 @@ class SankeyDisplay
       # @recolour(@boxes["District heating"].left_lines,"#FF0000")
       # @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
     
-    pixels_per_TWh = $('#sankey').height() / 40000
+    pixels_per_TWh = $('#sankey').height() / 28000
 
     @s.y_space = Math.round(100 * pixels_per_TWh)
     @s.right_margin = 250

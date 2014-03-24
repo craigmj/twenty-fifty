@@ -1,8 +1,9 @@
 class Electricity
 
   setup: () ->
+    divs = ['demand_chart', 'supply_chart', 'capacity_chart', 'emissions_chart']
     charts = d3.select("#results").selectAll(".chart")
-      .data(['demand_chart', 'supply_chart', 'emissions_chart'])
+      .data(divs)
 
     charts.enter()
       .append('div')
@@ -11,14 +12,20 @@ class Electricity
 
     @demand_chart = timeSeriesStackedAreaChart()
       .title("Electricity Demand")
-      .unit('TWh/yr')
-      .max_value(3500)
+      .unit('PJ/yr')
+      .max_value(5000)
 
     @supply_chart = timeSeriesStackedAreaChart()
-      .title("Electricity Supply")
-      .unit('TWh/yr')
+      .title("Electrity Supply")
+      .unit('GW')
       .total_label('Total')
-      .max_value(8000)
+      .max_value(5000)
+
+    @capacity_chart = timeSeriesStackedAreaChart()
+      .title("Installed Capacity")
+      .unit('GW')
+      .total_label('Total')
+      .max_value(500)
 
     @emissions_chart = timeSeriesStackedAreaChart()
       .title("Emissions from Electricity")
@@ -27,14 +34,17 @@ class Electricity
       .min_value(-500)
       .max_value(1000)
 
+    document.getElementById(d).style.width="22%" for d in divs
+
   teardown: () ->
     $('#results').empty()
-    @final_energy_chart = null
-    @primary_energy_chart = null
+    @demand_chart = null
+    @supply_chart = null
+    @capacity_chart = null
     @emissions_chart = null
 
   updateResults: (@pathway) ->
-    @setup() unless @emissions_chart? && @demand_chart? && @supply_chart?
+    @setup() unless @emissions_chart? && @demand_chart? && @supply_chart? && @capacity_chart?
 
     @demand_chart.context(@pathway.final_energy_demand.Total)
 
@@ -51,6 +61,11 @@ class Electricity
     d3.select('#supply_chart')
       .datum(series)
       .call(@supply_chart)
+
+    series = d3.map(@pathway.electricity.capacity)
+    d3.select('#capacity_chart')
+      .datum(series)
+      .call(@capacity_chart)
 
     @emissions_chart.context(@pathway.ghg.Total)
 
