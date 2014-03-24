@@ -104,7 +104,7 @@ func main() {
 	go func() {
 		for s := 0; s < 6; s++ {
 			for l := 0; l < 6; l ++ {
-				c := NewHSL(136 + 16*s, 16 + 32*s, 64 + l*24)
+				c := NewHSL(136 + 16*s, 16 + 24*s, 64 + l*24)
 				colorC <- c
 			}
 		}
