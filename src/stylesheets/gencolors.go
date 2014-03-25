@@ -6,8 +6,11 @@ import (
 )
 
 var cssClasses = []string{
+	`.agriculture`,
 	`.gas`,
+	`.ccgt`,
 	`.coal`,
+	`.cooking`,
 	`.oil`,
 	`.bioenergy`,
 	`.environmentalheat`,
@@ -16,7 +19,9 @@ var cssClasses = []string{
 	`.hydro`,
 	`.nuclear`,
 	`.offshorewind`,
+	`.other`,
 	`.onshorewind`,
+	`.pv`,
 	`.solar`,
 	// `text.solar`,
 	`.tidal`,
@@ -38,7 +43,7 @@ var cssClasses = []string{
 
 	// The emissions chart
 	`.carboncapture`,
-	`.lulucf`,
+	// `.lulucf`,
 	`.fuelcombustion`,
 	`.aviationandshipping`,
 	`.waste`,
@@ -102,15 +107,14 @@ func main() {
 
 	colorC := make(chan Color)
 	go func() {
-		for s := 0; s < 6; s++ {
-			for l := 0; l < 6; l ++ {
-				c := NewHSL(136 + 16*s, 16 + 24*s, 64 + l*24)
+		for s := 0; s < 7; s++ {
+			for l := 0; l < 6; l++ {
+				c := NewHSL(136+16*s, 16+24*s, 64+l*24)
 				colorC <- c
 			}
 		}
 		close(colorC)
 	}()
-
 
 	for _, c := range cssClasses {
 		color := <-colorC

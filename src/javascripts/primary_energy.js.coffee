@@ -67,8 +67,8 @@ class PrimaryEnergy
       .tween('text', (d) ->
         current = parseInt(@textContent) || +d
         i = d3.interpolateRound(current, +d)
-        (t) ->
-          @textContent = "#{i(t)}% reduction 1990-2050; Target is 80%"
+        # (t) ->
+        #   @textContent = "#{i(t)}% reduction 1990-2050"
       )
 
   zoom: () ->

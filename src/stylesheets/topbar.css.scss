@@ -10,6 +10,9 @@
   // border-bottom: solid $color-focus 1px;
   padding: 0.4em 0.4em 0 0.4em;
   // padding: 0.4em;
+  -moz-box-sizing: border-box;
+  -safari-box-sizing: border-box;
+  box-sizing: border-box;
 
   #zaflag {
     float:left;
