@@ -59,14 +59,10 @@ class SankeyDisplay
 
     @s = new Sankey()
 
-    @s.stack(0, ["Coal reserves","Oil imports","Gas reserves","Gas imports","Agricultural 'waste'","Biofuel imports","Solar","Nuclear","Electricity imports","Wind","Hydro","Biomass"])
-    @s.stack(1, ["Coal","Oil","Gas","Bio-conversion","Electricity end use"])
-    @s.stack(2, ["Coal to Liquid","Solid","Gas to Liquid"])
-    @s.stack(3, ["Liquid","Thermal generation"])
-    @s.stack(4, ["Electricity grid"])
-    @s.stack(5, ["Over generation / exports","Heating - homes","Cooking and appliances - homes","Water Heating - homes","Commercial Lighting and appliances","Industry","Agriculture","Freight transport","Losses in End use RES + COM","H2 conversion","Commercial cooling and heating"])
-    @s.stack(6, ["Losses","H2"])
-    @s.stack(7, ["Passenger transport","Road transport"])
+    @s.stack(0, ["Coal","Crude oil","Natural gas","Solar","Wind","Hydro","Nuclear fuel","Biomass","electricity imports","coal","synthetic fuels","crude refineries"])
+    @s.stack(1, ["Electricity generation","Synthetic fuels","coal direct","Crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
+    @s.stack(2, ["coal final","natural gas final","electricity","losses","liquid fuels","biomass final"])
+    @s.stack(3, ["industry","households","transport","agriculture","commercial"])
 
     # @s.stack(0,[
     #   "Pumped heat",
@@ -206,7 +202,7 @@ class SankeyDisplay
       # @recolour(@boxes["District heating"].left_lines,"#FF0000")
       # @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
     
-    pixels_per_TWh = $('#sankey').height() / 28000
+    pixels_per_TWh = $('#sankey').height() / 18000
 
     @s.y_space = Math.round(100 * pixels_per_TWh)
     @s.right_margin = 250
