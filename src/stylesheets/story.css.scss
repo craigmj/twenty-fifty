@@ -26,3 +26,40 @@
 #stories .clear {
   clear: both;
 }
+
+#thestory {
+  line-height: 1.2em;
+  margin: 0;
+  // height: 300px;
+  padding: 0em 1em 1em 1em;
+  .story_h1 {
+    font-size: 1em;
+    font-weight: bold;
+    white-space: nowrap;
+    display:block;
+    padding-right: 1em;
+    margin-bottom: 0em;
+  }
+  .story_h2 {
+    font-size: 0.9em;
+    font-weight: bold;
+    white-space: nowrap;
+    display:inline-block;
+    padding-right: 1em;
+    margin-bottom: 0em;
+  }
+  .story_h3 {
+    font-size: 0.9em;
+    white-space: nowrap;
+    display:inline-block;
+    padding-right: 1em;
+    margin-bottom: 0em;
+    font-weight: 600;
+  }
+  .info {
+    padding-right: 1em;
+    font-size: 0.85em;
+    font-weight: 400;
+    display:inline-block;
+  }
+}
