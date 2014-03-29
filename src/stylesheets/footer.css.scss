@@ -8,6 +8,13 @@ body {
   text-align: center;
   font-size: 0.72em;
   color: $footer-color;
+  img {
+	display: block;
+	width: 220px;
+	//margin: 0 auto;
+	padding: 0.4em;
+	float: left;
+  }
   // background-color: $footer-bgcolor;
   margin-bottom:0;
   a {

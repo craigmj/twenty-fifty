@@ -35,7 +35,7 @@
             %a{href:'http://www.environment.gov.za'} The South Africa 2050 Calculator
 
           #examples
-            %a.newdropdown{href:'#', data: {dropdown: '#savedpathway_choices'}} Examples
+            //%a.newdropdown{href:'#', data: {dropdown: '#savedpathway_choices'}} Examples
 
           // To add or remove views from the web tool, alter the following section
           #views
@@ -80,6 +80,7 @@
               - structure.supply_choices.each do |choice|
                 = classic_table_row_for_choice choice
           #other
+            %img{src:"/assets/dea_logo.png"}
             / %table
             /   = classic_table_row_for_choice structure.geosequestration_choice
             /   = classic_table_row_for_choice structure.balancing_choice

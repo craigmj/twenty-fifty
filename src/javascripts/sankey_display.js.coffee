@@ -16,8 +16,12 @@ class SankeyDisplay
     name_conversions[name] || name
   
   constructor: () ->
+    @lowercase=true
   
   trimSankeyLabels: (data)->
+    if @lowercase
+      ([d[0].trim().toLowerCase(), d[1], d[2].trim().toLowerCase()] for d in data)
+    else
       ([d[0].trim(), d[1], d[2].trim()] for d in data)
 
   removeLiquidLoop: (data)->
@@ -59,10 +63,16 @@ class SankeyDisplay
 
     @s = new Sankey()
 
-    @s.stack(0, ["Coal","Crude oil","Natural gas","Solar","Wind","Hydro","Nuclear fuel","Biomass","electricity imports","coal","synthetic fuels","crude refineries"])
-    @s.stack(1, ["Electricity generation","Synthetic fuels","coal direct","Crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
-    @s.stack(2, ["coal final","natural gas final","electricity","losses","liquid fuels","biomass final"])
-    @s.stack(3, ["industry","households","transport","agriculture","commercial"])
+    if not @lowercase 
+       @s.stack(0, ["Coal","Crude oil","Natural gas","Solar","Wind","Hydro","Nuclear fuel","Biomass","electricity imports","coal","synthetic fuels","crude refineries"])
+       @s.stack(1, ["Electricity generation","Synthetic fuels","coal direct","Crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
+       @s.stack(2, ["coal final","natural gas final","electricity","losses","liquid fuels","biomass final"])
+       @s.stack(3, ["industry","households","transport","agriculture","commercial"])
+    else
+      @s.stack(0, ["coal","crude oil","natural gas","solar","wind","hydro","nuclear fuel","biomass","electricity imports","coal","synthetic fuels","crude refineries"])
+      @s.stack(1, ["electricity generation","synthetic fuels","coal direct","crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
+      @s.stack(2, ["coal final","natural gas final","electricity","liquid fuels","biomass final"])
+      @s.stack(3, ["industry","households","transport","agriculture","commercial","losses"])
 
     # @s.stack(0,[
     #   "Pumped heat",
@@ -202,7 +212,7 @@ class SankeyDisplay
       # @recolour(@boxes["District heating"].left_lines,"#FF0000")
       # @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
     
-    pixels_per_TWh = $('#sankey').height() / 18000
+    pixels_per_TWh = $('#sankey').height() / 35000
 
     @s.y_space = Math.round(100 * pixels_per_TWh)
     @s.right_margin = 250

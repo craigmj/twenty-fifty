@@ -34,7 +34,7 @@ class EnergySecurity
     element.append("<h2>Dependence on imported energy</h2>")
     element.append("<p>The calculator assumes that any available biomass is preferred over fossil fuels and that domestically produced fuels are preferred over imports. It assumes that fossil fuels are imported to cover any shortfall.</p>")
     element.append("<table class='imports'>")
-    element.append("<tr><th class='description'></th><th colspan='2' class='year'>2007</th><th></th><th colspan='2' class='year'>2050</th></tr>")
+    element.append("<tr><th class='description'></th><th colspan='2' class='year'>2006</th><th></th><th colspan='2' class='year'>2050</th></tr>")
     element.append("<tr><th class='description'>Imports</th><th class='value'>TWh/yr</th><th class='value'>%</th><th></th><th class='value'>TWh/yr</th><th class='value'>%</th></tr>")
     for own name, values of @pathway.imports
       element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2007'].quantity}</td><td class='value'>#{values['2007'].proportion}</td><td>&nbsp;</td><td class='value'>#{values['2050'].quantity}</td><td class='value'>#{values['2050'].proportion}</td></tr>")
@@ -46,7 +46,7 @@ class EnergySecurity
     element.append("<h2>Diversity of energy sources</h2>")
     element.append("<p>There may be a benefit from maintaining a diversity of energy sources:</p>")
     element.append("<table class='imports'>")
-    element.append("<tr><th class='description'>Proportion of energy supply</th><th class='value'>2007</th><th></th><th class='value'>2050</th></tr>")
+    element.append("<tr><th class='description'>Proportion of energy supply</th><th class='value'>2006</th><th></th><th class='value'>2050</th></tr>")
     for own name, values of @pathway.diversity
       unless values['2007'] == "0%" && values['2050'] == "0%"
         element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2007']}</td><td>&nbsp;</td><td class='value'>#{values['2050']}</td></tr>")
