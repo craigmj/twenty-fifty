@@ -13,7 +13,7 @@ class PrimaryEnergy
       .title("Final Energy Demand")
       .unit('PJ/yr')
       .total_label('Total')
-      .max_value(12000)
+      .max_value(18000)
 
     @primary_energy_chart = timeSeriesStackedAreaChart()
       .title("Primary Energy Supply")
