@@ -54,7 +54,7 @@ class Electricity
       .call(@demand_chart)
 
     series = d3.map(@pathway.electricity.supply)
-    series.remove('Biomass/Coal power stations')
+    # series.remove('Biomass/Coal power stations')
     series.remove('Non-thermal renewable generation')
     @supply_chart.context(@pathway.final_energy_demand.Total)
 
