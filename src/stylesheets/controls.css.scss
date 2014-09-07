@@ -54,6 +54,12 @@
         text-decoration: underline;
       }
     }
+    td.groupname {
+      color: white;
+      background-color: $color-bgcolor;
+      border-top: 1px solid #999;
+      font-weight: bold;
+    }
     td.help {
       width: 14px;
       a {

@@ -22,11 +22,16 @@ module Helper
   end
   
   def classic_table_row_for_choice(choice)
+    groupRow = ""
+    if nil==@group || @group!=choice.group
+      @group = choice.group
+      groupRow = "<tr><td colspan='6' class='groupname'>#{choice.group}</td></tr>"
+    end
     row = ["<td class='name'><a href='/assets/onepage/#{choice.doc}' target='_new' onmouseover='twentyfifty.startDemo(#{choice.number}); return true;' onmouseout='twentyfifty.stopDemo(#{choice.number});return true;'>#{choice.name}</a></td>", "<td class='help'><a title='Click for more detail on what choices #{choice.levels.to_a.join(' ')} mean.' href='/assets/onepage/#{choice.doc}' target='_new'>?</a></td>"]
     choice.levels.each.with_index do |level,i|
       row << "<td class='choice'><a href='#' data-choicenumber='#{choice.number}' data-choicelevel='#{i+1}' id='c#{choice.number}l#{i+1}' title='#{choice.descriptions[i]}' class='choiceLink' >#{level}</a></td>"
     end
-    "<tr class='#{choice.incremental_or_alternative}' id='r#{choice.number}'>#{row.join('')}</tr>"
+    groupRow + "<tr class='#{choice.incremental_or_alternative}' id='r#{choice.number}'>#{row.join('')}</tr>"
   end
 
   def example_pathways
