@@ -15,7 +15,7 @@ else
  source "$HOME/.rvm/scripts/rvm"
  RVMB="$HOME/.rvm/bin/rvm"
 fi
-rvm use 2.1-head
+rvm use 2.1.2
 
 pushd /opt/decc/twenty-fifty
 rm -f Gemfile.lock

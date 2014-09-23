@@ -13,19 +13,19 @@ class Electricity
     @demand_chart = timeSeriesStackedAreaChart()
       .title("Electricity Demand")
       .unit('PJ/yr')
-      .max_value(5000)
+      .max_value(8000)
 
     @supply_chart = timeSeriesStackedAreaChart()
       .title("Electrity Supply")
       .unit('GW')
       .total_label('Total')
-      .max_value(5000)
+      .max_value(8000)
 
     @capacity_chart = timeSeriesStackedAreaChart()
       .title("Installed Capacity")
       .unit('GW')
       .total_label('Total')
-      .max_value(500)
+      .max_value(800)
 
     @emissions_chart = timeSeriesStackedAreaChart()
       .title("Emissions from Electricity")
@@ -52,6 +52,12 @@ class Electricity
     d3.select('#demand_chart')
       .datum(d3.map(@pathway.electricity.demand))
       .call(@demand_chart)
+
+    filtered = []
+    for k,v of @pathway.electricity.supply
+      if "CMJ "!=k.substring(0,4)
+        filtered[k]=v
+    @pathway.electricity.supply = filtered
 
     series = d3.map(@pathway.electricity.supply)
     # series.remove('Biomass/Coal power stations')
