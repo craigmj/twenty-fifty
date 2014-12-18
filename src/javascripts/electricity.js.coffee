@@ -19,13 +19,13 @@ class Electricity
       .title("Electrity Supply")
       .unit('GW')
       .total_label('Total')
-      .max_value(8000)
+      .max_value(20000)
 
     @capacity_chart = timeSeriesStackedAreaChart()
       .title("Installed Capacity")
       .unit('GW')
       .total_label('Total')
-      .max_value(800)
+      .max_value(500000)
 
     @emissions_chart = timeSeriesStackedAreaChart()
       .title("Emissions from Electricity")

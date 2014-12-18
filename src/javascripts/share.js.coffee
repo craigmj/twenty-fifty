@@ -20,7 +20,7 @@ shareHTML = """
       <h1>Sharing this pathway with the excel version of the 2050 pathways calculator</h1>
       <p>
         You may want to explore your pathway in more detail, taking a look at all the assumptions behind our modelling, by downloading
-        <a href="http://www.decc.gov.uk/2050">the underlying excel spreadsheet.</a>
+        <a href="https://github.com/craigmj/decc_2050_model/blob/master/spreadsheet/SACC.141008.KEA.xlsx">the underlying excel spreadsheet.</a>
       </p>
       <p>
         If you do, then you can recreate the pathway you have chosen in this tool by copying the numbers from the box below and pasting them in cells E5 to E57 on the 'Control' sheet of the workbook. You can also copy a pathway from that range in the excel model, paste it in the box below and click the 'Go to this pathway' button at the bottom of the page.
