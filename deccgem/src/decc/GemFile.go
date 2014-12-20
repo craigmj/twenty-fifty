@@ -45,6 +45,7 @@ func WhichGem(dirname string) (*GemFile, error) {
 	}
 	var g *GemFile
 	for _, c := range gems {
+		fmt.Println("# Considering gem: ", c)		
 		if nil==g || g.Gem.EarlierThan(c.Gem) {
 			g=c
 		}

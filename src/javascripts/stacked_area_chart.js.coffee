@@ -178,6 +178,7 @@ window.timeSeriesStackedAreaChart = () ->
       new_ymax = extent.ymax
     extent.ymin = new_ymin
     extent.ymax = new_ymax
+    d3.selectAll("g.ppd").attr("display","none")
     chart.draw()
 
   unzoom = () ->
@@ -188,6 +189,7 @@ window.timeSeriesStackedAreaChart = () ->
       ymin: min_value
       ymax: max_value
     d3.event.stopPropagation()
+    d3.selectAll("g.ppd").attr("display","inline")
     chart.draw()
 
   context = undefined
@@ -349,6 +351,12 @@ window.timeSeriesStackedAreaChart = () ->
             .attr("d", (d) -> area(d))
 
 
+        gEnter
+          .append("g")
+          .attr("class","ppd")
+          .attr("height", height)  # do we need this?
+
+
         # Add the axes & title (after the areas, so that the axis are drawn on top)
         gEnter
           .append("g")
@@ -497,6 +505,37 @@ window.timeSeriesStackedAreaChart = () ->
             .attr("y", (d) -> yScale(d.label_y)+4)
             # If they are too small, don't show them
             .attr("display", (d,i) -> if showLabelFilter(d) then "inline" else "none" )
+
+        # PPD code here
+        if (this.id == "emissions_chart")
+          gppd = gEnter.select("g.ppd")
+
+          ppdpoints = [
+            {"x":2010,"y":547},
+            {"x":2020,"y":583},
+            {"x":2025,"y":614},
+            {"x":2035,"y":614},
+            {"x":2050,"y":428},
+            {"x":2050,"y":212},
+            {"x":2035,"y":398},
+            {"x":2010,"y":398}
+          ]
+
+          gppd.selectAll("polygon")
+            .data([ppdpoints])
+            .enter().append("polygon")
+              .attr("points",(d) ->
+                  return d.map((d) ->
+                      [xScale(d.x),yScale(d.y)].join(",")
+                  ).join(" ")
+              )
+              #transition()
+              .attr("stroke","green")
+              .attr("stroke-width",2)
+              .attr("opacity",0.5)
+              .attr("fill", "green")
+              ;
+
 
         dataTable = (series, seriesclass) ->
             # Add the numbers at the bottom
