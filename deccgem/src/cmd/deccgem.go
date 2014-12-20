@@ -8,13 +8,13 @@ import (
 	"decc"
 )
 
-var helpText = `deccgem v0.0.1
+var helpText = `deccgem v0.0.2
 USAGE: deccgem CMD
 
 COMMANDS:
 find		Return the latest DECC gem installed
 gemfile 	Write the twenty-fifty Gemfile to Stdout
-whichgem 	Find the latest .gem file in current directory 
+whichgem 	Find the latest .gem file in current directory
 `
 
 func main() {
