@@ -7,9 +7,10 @@ require 'decc_2050_model'
 class ServeHTML < Sinatra::Base
   puts "Decc2050Model last modified date = #{Decc2050Model.last_modified_date}"
   #puts "Decc2050Model version = #{Decc2050Model.version}"
-  puts "Decc2050Version.control_a1 = #{Model.new.control_a1}"
+  puts "Decc2050Version.control_a1 = #{Model.control_a1}"
 
   set :protection, :except => :frame_options
+  set :bind, '0.0.0.0'  
   puts "Set frame_options off"
 
   if development?

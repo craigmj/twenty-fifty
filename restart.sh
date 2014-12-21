@@ -15,11 +15,11 @@ else
  source "$HOME/.rvm/scripts/rvm"
  RVMB="$HOME/.rvm/bin/rvm"
 fi
-rvm use 2.1.2
+rvm use 2.1.5
 
 pushd /opt/decc/twenty-fifty
 rm -f Gemfile.lock
-deccgem/deccgem gemfile > Gemfile
+deccgem gemfile > Gemfile
 bundle install
 sudo stop decc2050 || true
 sudo start decc2050
