@@ -34,55 +34,45 @@ window.costEssentialNotesHTML = """
 """
 
 cost_categories =
-  "Conventional thermal plant":"Electricity"
-  "Combustion + CCS":"Electricity"
-  "Nuclear power":"Electricity"
+  "Biomass/coal power stations":"Electricity"
+  "CCGT":"Electricity"
+  "OCGT":"Electricity"
   "Onshore wind":"Electricity"
-  "Offshore wind":"Electricity"
   "Hydroelectric":"Electricity"
-  "Wave and Tidal":"Electricity"
-  "Geothermal":"Electricity"
-  "Distributed solar PV":"Electricity"
-  "Distributed solar thermal":"Buildings"
-  "Micro wind":"Electricity"
-  "Biomatter to fuel conversion":"Bioenergy"
-  "Bioenergy imports":"Bioenergy"
-  "Agriculture and land use":"Bioenergy"
-  "Energy from waste":"Bioenergy"
-  "Waste arising":"Bioenergy"
-  "Marine algae":"Bioenergy"
-  "Electricity imports":"Electricity"
-  "Electricity Exports":"Electricity"
-  "Electricity grid distribution":"Electricity"
-  "Storage, demand shifting, backup":"Electricity"
+  "CSP":"Electricity"
+  "Decentralized PV":"Electricity"
+  "Centralized PV":"Electricity"
+  "Pumped Storage":"Electricity"
+  "place holder":"Electricity"
+  "Electricity Transmission and Distribution":"Electricity"
   "H2 Production":"Transport"
-  "Domestic heating":"Buildings"
-  "Domestic insulation":"Buildings"
-  "Commercial heating and cooling":"Buildings"
-  "Domestic lighting, appliances, and cooking":"Buildings"
-  "Commercial lighting, appliances, and catering":"Buildings"
-  "Industrial processes":"Industry"
-  "Conventional cars and buses":"Transport"
-  "Hybrid cars and buses":"Transport"
-  "Electric cars and buses":"Transport"
-  "Fuel cell cars and buses":"Transport"
-  "Bikes":"Transport"
+  "Commercial":"Buildings"
+  "Residential lighting":"Buildings"
+  "Residential water heating":"Buildings"
+  "Residential space heating":"Buildings"
+  "Residential other":"Buildings"
+  "Residential cooking":"Buildings"
+  "Residential refrigeration":"Buildings"
+  "Residential non-energy use":"Buildings"
+  "Biomass for fuel":"Bioenergy"
+  "Fossil fuel  coal supply":"Fossil Fuels"
+  "Fossil fuel gas supply":"Fossil Fuels"
+  "Petroleum CTL":"Fossil Fuels"
+  "Petroleum GTL":"Fossil Fuels"
+  "Refineries":"Fossil Fuels"
+  "place holder":"Bioenergy"
+  "Conventional cars, SUVs, buses, minibuses, BRT":"Transport"
+  "PHEV cars, SUVs, minibuses":"Transport"
+  "Electric cars, buses, minibuses, BRT":"Transport"
+  "FCV cars, SUVs, buses, minibuses, BRT":"Transport"
+  "Natural gas buses, minibuses, BRT":"Transport"
+  "Road freight":"Transport"
   "Rail":"Transport"
-  "Domestic aviation":"Transport"
-  "Domestic freight":"Transport"
-  "International aviation":"Transport"
-  "International shipping (maritime bunkers)":"Transport"
-  "Geosequestration":"Other"
-  "Petroleum refineries":"Industry"
-  "Coal":"Fossil fuels"
-  "Oil":"Fossil fuels"
-  "Gas":"Fossil fuels"
-  "Fossil fuel transfers":"Fossil fuels"
-  "District heating effective demand":"Buildings"
-  "Power Carbon Capture":"Electricity"
-  "Industry Carbon Capture":"Industry"
-  "Storage of captured CO2":"Other"
-  "Finance cost":"Finance"
+  "Coal Imports":"Fossil Fuels"
+  "Oil Imports":"Fossil Fuels"
+  "Gas Imports":"Fossil Fuels"
+  "Finance cost" : "Finance"
+  "Total":"Total"
 
 costs_in_category = (desired_category) ->
   costs = []
@@ -92,11 +82,13 @@ costs_in_category = (desired_category) ->
   costs
 
 group_costs_of_pathway = (pathway) ->
+  console.log("costs_common_methods.js.coffee::group_costs_of_pathway")
   adjust_costs_of_pathway(pathway) unless pathway.total_cost_low_adjusted?
   categorised_costs = {}
   for own name, values of pathway.cost_components
     #unless name == 'Finance cost' # Reallocating this
     category_name = cost_categories[name]
+    console.log("name = #{name}, category_name = #{category_name}")
     category = categorised_costs[category_name]
     
     unless category?
@@ -127,6 +119,7 @@ cost_override_in_place_warning = () ->
       break
 
 adjust_costs_of_pathway = (pathway) ->
+  # console.log("costs_common_methods.js.coffee::adjust_costs_of_pathway()")
   total = { low: 0, range: 0, high: 0, finance_max:0}
   for own name,values of pathway.cost_components
     # console.log name, values if name == "Conventional thermal plant"

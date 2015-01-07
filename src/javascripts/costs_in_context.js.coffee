@@ -33,15 +33,16 @@ class CostsInContext
     @h = e.height()
     @w = e.width()
     @r = new Raphael('costsincontext',@w,@h)
-    @x = d3.scale.linear().domain([0, 40000]).range([250,@w-30]).nice()
+    maxX = 40000
+    @x = d3.scale.linear().domain([0, maxX]).range([250,@w-30]).nice()
     @y = d3.scale.ordinal().domain(all_pathways).rangeRoundBands([25,@h-20],0.25)
 
     # Horizontal background boxes
     for code in comparator_pathways
-     @r.rect(@x(0),@y(code),@x(40000)-@x(0),@y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
+     @r.rect(@x(0),@y(code),@x(maxX)-@x(0),@y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
       
     # The y axis labels
-    @r.rect(25,@y("chosen"),@x(40000)-25,@y.rangeBand()).attr({'fill':'#FCFF9B','stroke':'none'})
+    @r.rect(25,@y("chosen"),@x(maxX)-25,@y.rangeBand()).attr({'fill':'#FCFF9B','stroke':'none'})
     @r.text(30,@y("chosen")+9,"Your pathway").attr({'text-anchor':'start','font-weight':'bold'})
     @r.text(30,@y("chosen")+27,"You can click on the chart to make a more\ndetailed comparison with the pathways below").attr({'text-anchor':'start'})
     for code in comparator_pathways
@@ -169,7 +170,7 @@ class CostsInContext
     
     bar.overlay.attr({width: @x(total_cost+total_range) - @x(0)})
     
-    if pathway.ghg['Total'][8] > 166
+    if pathway.ghg?['Total']?[8] > 166
       bar.message.attr({x:@x(total_cost+total_range)+100,text:"This pathway does not reduce emissions by at least 80% on 1990 levels"})
       bar.message.toFront()
     else

@@ -2,25 +2,16 @@ class CostsSensitivity
 
   costsSensitivityHTML = """
 <div class='costssensitivity'>
+  <!--
   <ul id='comparatorchoice'>
     <li>
       <a href="#" onclick="$('ul#view_comparatorchoice').toggle(); return false;">Choose comparison<img alt="Dropdown-arrow" src="/assets/images/dropdown-arrow.png" /></a>
       <ul class='choices' id='view_comparatorchoice'>
-        <li><a href="#" onclick="twentyfifty.switchComparator('10111111111111110111111001111110111101101101110110111');$('ul#view_comparatorchoice').toggle(); return false;">Doesn't tackle climate change (All level 1)</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('10111111111111110111111004444440444404203304440420111');$('ul#view_comparatorchoice').toggle(); return false;">Maximum demand</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('40444444444444440443444001111110111101101101110110111');$('ul#view_comparatorchoice').toggle(); return false;">Maximum supply</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('i0g2dd2pp1121f1i032211p004314110433304202304320420121');$('ul#view_comparatorchoice').toggle(); return false;">Analogous to Markal 3.26</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('e0d3jrg221ci12110222112004423220444404202304440420141');$('ul#view_comparatorchoice').toggle(); return false;">Higher renewables, more energy efficiency</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('r013ce1111111111042233B002322220233302202102330220121');$('ul#view_comparatorchoice').toggle(); return false;">Higher nuclear, less energy efficiency</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('f023df111111111f0322123003223220333203102303430310221');$('ul#view_comparatorchoice').toggle(); return false;">Higher CCS, more bioenergy</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('10h4nn4431w23y110243111004424440343304202304430420441');$('ul#view_comparatorchoice').toggle(); return false;">Friends of the Earth</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('10h2pdppp12332130233122004414430343304102304430410231');$('ul#view_comparatorchoice').toggle(); return false;">Campaign to Protect Rural England</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('20222144411341110343321003422440423404203203340420141');$('ul#view_comparatorchoice').toggle(); return false;">Mark Brinkley</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('h0h2gg1211cj1j110322222003313230234102102203440320121');$('ul#view_comparatorchoice').toggle(); return false;">National Grid</a></li>
-        <li><a href="#" onclick="twentyfifty.switchComparator('g0f2oj11t1rgqj1j0343111003324240244104201304430420231');$('ul#view_comparatorchoice').toggle(); return false;">Atkins</a></li>
+        <li><a href="#" onclick="twentyfifty.switchComparator('111111111111111111111111111111111111111');$('ul#view_comparatorchoice').toggle(); return false;">Doesn't tackle climate change (All level 1)</a></li>
       </ul>
     </li>
   </ul>
+  -->
   <h1>The cost of your pathway compared with another, allowing simple variation in cost estimates.</h1>
   #{window.costCaveatHTML}
   <div id='costssensitivity'></div>
@@ -30,7 +21,45 @@ class CostsSensitivity
 
   bottom_area_start = 219
     
-  cost_component_names = ["Conventional thermal plant","Combustion + CCS","Nuclear power","Onshore wind","Offshore wind","Hydroelectric","Wave and Tidal","Geothermal","Distributed solar PV","Distributed solar thermal","Micro wind","Biomatter to fuel conversion","Bioenergy imports","Agriculture and land use","Energy from waste","Waste arising","Marine algae","Electricity imports","Electricity Exports","Electricity grid distribution","Storage, demand shifting, backup","H2 Production","Domestic heating","Domestic insulation","Commercial heating and cooling","Domestic lighting, appliances, and cooking","Commercial lighting, appliances, and catering","Industrial processes","Conventional cars and buses","Hybrid cars and buses","Electric cars and buses","Fuel cell cars and buses","Bikes","Rail","Domestic aviation","Domestic freight","International aviation","International shipping (maritime bunkers)","Geosequestration","Petroleum refineries","Fossil fuel transfers","District heating effective demand","Storage of captured CO2","Coal","Oil","Gas","Finance cost"]
+  cost_component_names = [
+    "Biomass/coal power stations",
+    "CCGT",
+    "OCGT",
+    "Onshore wind",
+    "Hydroelectric",
+    "CSP",
+    "Decentralized PV",
+    "Centralized PV",
+    "Pumped Storage",
+    "place holder",
+    "Electricity Transmission and Distribution",
+    "H2 Production",
+    "Commercial",
+    "Residential lighting",
+    "Residential water heating",
+    "Residential space heating",
+    "Residential other",
+    "Residential cooking",
+    "Residential refrigeration",
+    "Residential non-energy use",
+    "Biomass for fuel",
+    "Fossil fuel  coal supply",
+    "Fossil fuel gas supply",
+    "Petroleum CTL",
+    "Petroleum GTL",
+    "Refineries",
+    "place holder",
+    "Conventional cars, SUVs, buses, minibuses, BRT",
+    "PHEV cars, SUVs, minibuses",
+    "Electric cars, buses, minibuses, BRT",
+    "FCV cars, SUVs, buses, minibuses, BRT",
+    "Natural gas buses, minibuses, BRT",
+    "Road freight",
+    "Rail",
+    "Coal Imports",
+    "Oil Imports",
+    "Gas Imports"
+    ]
   
   cost_wiki_links = {
     "Fuel cell cars and buses": '/pages/63',
@@ -275,8 +304,8 @@ class CostsSensitivity
     @h = h = e.height()
     w = e.width()
     r = new Raphael('costssensitivity',w,h)
-
-    @x = x = d3.scale.linear().domain( [0, 10000 ] ).range([250,w-30]).nice()
+    maxX = 80000
+    @x = x = d3.scale.linear().domain( [0, maxX ] ).range([250,w-30]).nice()
     @top_y = y = d3.scale.ordinal().domain(['p','i','c']).rangeRoundBands([30,180],0.15)
     
     # The x axis labels and indicators
@@ -286,7 +315,7 @@ class CostsSensitivity
     @top_bar_height = bar_height = y.rangeBand()
     
     # This pathway
-    r.rect(25,y('p'),x(10000)-25,bar_height).attr({'fill':'#FCFF9B','stroke':'none'})
+    r.rect(25,y('p'),x(maxX)-25,bar_height).attr({'fill':'#FCFF9B','stroke':'none'})
     r.text(30,y("p")+9,"Your pathway").attr({'text-anchor':'start','font-weight':'bold'})
     r.text(30,y("p")+27,"You can use the chart below to see how\nsensitive it is to different cost assumptions").attr({'text-anchor':'start'})
     @top_pathway_chart =
@@ -294,7 +323,7 @@ class CostsSensitivity
       range:  r.rect(x(0),y('p'),0,bar_height).attr({'fill':p_range_fill_color,'stroke':'none'})
 
     # Comparator pathway
-    r.rect(x(0),y('c'),x(10000)-x(0),bar_height).attr({'fill':'#ddd','stroke':'none'})
+    r.rect(x(0),y('c'),x(maxX)-x(0),bar_height).attr({'fill':'#ddd','stroke':'none'})
     @top_comparator_chart =
       name:         r.text(30,y('c')+9,"").attr({'text-anchor':'start','font-weight':'bold'})
       description:  r.text(30,y('c')+27,"").attr({'text-anchor':'start'})
@@ -326,7 +355,7 @@ class CostsSensitivity
     for name in cost_component_names
       py = y(name)
       # background
-      r.rect(x(0),py,x(10000)-x(0),y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
+      r.rect(x(0),py,x(maxX)-x(0),y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
     
     sensitivity_label_height = y.rangeBand()
     sensitivity_label_width = @w(1000)-2

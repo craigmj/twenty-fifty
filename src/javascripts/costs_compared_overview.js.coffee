@@ -13,25 +13,25 @@ costsComparedOverviewHTML = """
 class CostsComparedOverview
   
   categories = [
-    "Fossil fuels"
+    "Fossil Fuels"
     "Bioenergy"
     "Electricity"
     "Buildings"
     "Transport"
-    "Industry"
+    # "Industry"
     "Finance"
-    "Other"
+    # "Other"
   ]
   
   category_colors =
-    "Fossil fuels": {low: "#8c564b",range: "url(/assets/images/hatches/hatch-8c564b.png)"}
+    "Fossil Fuels": {low: "#8c564b",range: "url(/assets/images/hatches/hatch-8c564b.png)"}
     "Bioenergy"   : {low: "#2ca02c",range: "url(/assets/images/hatches/hatch-2ca02c.png)"}
     "Electricity" : {low: "#1f77b4",range: "url(/assets/images/hatches/hatch-1f77b4.png)"}
     "Buildings"   : {low: "#ff7f0e",range: "url(/assets/images/hatches/hatch-ff7f0e.png)"}
     "Transport"   : {low: "#d62728",range: "url(/assets/images/hatches/hatch-d62728.png)"}
-    "Industry"    : {low: "#7f7f7f",range: "url(/assets/images/hatches/hatch-7f7f7f.png)"}
+    # "Industry"    : {low: "#7f7f7f",range: "url(/assets/images/hatches/hatch-7f7f7f.png)"}
     "Finance"     : {low: "#EA8BCC",range: "url(/assets/images/hatches/hatch-EA8BCC.png)"}
-    "Other"       : {low: "#a55194",range: "url(/assets/images/hatches/hatch-a55194.png)"}
+    # "Other"       : {low: "#a55194",range: "url(/assets/images/hatches/hatch-a55194.png)"}
 
   constructor: () ->
     @ready = false
@@ -51,17 +51,18 @@ class CostsComparedOverview
     @h = e.height()
     @w = e.width()
     @r = new Raphael('costscomparedoverview',@w,@h)
-    @x = d3.scale.linear().domain([0, 7000]).range([250,@w-30]).nice()
+    maxX = 50000
+    @x = d3.scale.linear().domain([0, maxX]).range([250,@w-30]).nice()
     @y = d3.scale.ordinal().domain(all_pathways).rangeRoundBands([25,@h-20],0.25)
 
     @r.text(250,30,"Move your mouse over a coloured bar to see what it refers to. Click on a bar to see more detail").attr({'text-anchor':'start'})
 
     # Horizontal background boxes
     for code in twentyfifty.comparator_pathways
-     @r.rect(@x(0),@y(code),@x(7000)-@x(0),@y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
+     @r.rect(@x(0),@y(code),@x(maxX)-@x(0),@y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
 
     # The y axis labels
-    @r.rect(25,@y("chosen"),@x(7000)-25,@y.rangeBand()).attr({'fill':'#FCFF9B','stroke':'none'})
+    @r.rect(25,@y("chosen"),@x(maxX)-25,@y.rangeBand()).attr({'fill':'#FCFF9B','stroke':'none'})
     @r.text(30,@y("chosen")+9,"Your pathway").attr({'text-anchor':'start','font-weight':'bold'})
     @r.text(30,@y("chosen")+27,"You can click on the chart to make a more\ndetailed comparison of specific costs").attr({'text-anchor':'start'})
     for code in twentyfifty.comparator_pathways
@@ -168,11 +169,23 @@ class CostsComparedOverview
     # @boxes_low[_id].attr({width: @x(total_cost) - @x(0)})
     # @boxes_range[_id].attr({x:@x(total_cost),width: @x(total_range) - @x(0)})
     
+    
+    console.log("costs_compared_overview.js.coffee:updateBar() : pathway=", pathway)
+    console.log("categories = ", categories)
+    console.log("categorised_costs = ", pathway.categorised_costs)
     categorised_costs = pathway.categorised_costs
+
     b = @boxes[_id]
     _x = 0
     for category in categories
+      console.log("costs_compared_overview.js.coffee::updateBar() : category=#{category}, categorised_costs = ", categorised_costs[category])
       cost = categorised_costs[category]
+      if not cost?
+        console.error("cost is not defined for category #{category}")
+        continue
+      if not cost.low?
+        console.log("cost.low is not defined for category #{category}: cost=", cost)
+        cost.low = 0
       b[category].low.attr({x: @x(_x), width: @x(cost.low) - @x(0)})
       if cost.low > 1
         b[category].low_label.attr({x:@x(_x + cost.low/2),text:"#{Math.round(cost.low)}"})

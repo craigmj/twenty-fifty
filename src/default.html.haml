@@ -45,13 +45,14 @@
             / %a.view{href:'#', data: {view: 'map'}} Map
             %a.view{href:'#', data: {view: 'story'}} Story
             / %a.view{href:'#', data: {view: 'costs'}} Costs
-            / %a#cost_choice.newdropdown{href:'#', data: {dropdown: '#cost_choices'}} Costs
+            %a#cost_choice.newdropdown{href:'#', data: {dropdown: '#cost_choices'}} Costs
             // %a.view{href:'#', data: {view: 'air_quality'}} Air
             %a.view{href:'#', data: {view: 'share'}} Share
             / %a.view{href: 'http://2050-calculator-tool-wiki.decc.gov.uk'} Docs
 
         #cost_choices.dropdown
-          %a.view{href:'#', data: {view: 'costs_in_context'}} In context
+          / CMJ150107 - Context only makes sense vis-a-vis comparative scenaria
+          / %a.view{href:'#', data: {view: 'costs_in_context'}} In context
           %a.view{href:'#', data: {view: 'costs_compared_overview'}} Compared
           %a.view{href:'#', data: {view: 'costs_sensitivity'}} Sensitivity
 

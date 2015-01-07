@@ -224,11 +224,30 @@ loadMainPathway = (pushState = true) ->
     $('#calculating').hide()
   else
     $('#calculating').show()
-    
+    fix_data_cost_components = (cc)->
+      fix_low_high = (low,pt,high)->
+        if 0==low
+          low = pt
+        if 0==high
+          high = pt
+        return [low,pt,high]
+      for k,v of cc
+        console.log("k = #{k}, v=", v)
+        for prefix in ['', 'finance_']
+          [v[prefix + "low"], v[prefix+"point"], v[prefix+"high"]] = 
+            fix_low_high(v[prefix + "low"], v[prefix+"point"], v[prefix+"high"])
+        cc[k] = v
+        return
+      cc
+
     fetch = () ->
       $.getJSON(url({code:main_code, view:'data', sector: null, comparator: null}), (data) ->
         if data?
           cache[data._id] = data
+          # CMJ150107 - CostComponents fixes for low and point
+          # data["cost_components"] = fix_data_cost_components(data["cost_components"])
+          # CMJ150107 - Making these fixes in model_result.rb now
+          console.log("data['cost_components'] = ", data["cost_components"])
           if data._id == codeForChoices()
             view_manager.updateResults(data)
             $('#calculating').hide()
