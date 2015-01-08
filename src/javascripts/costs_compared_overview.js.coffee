@@ -43,6 +43,8 @@ class CostsComparedOverview
     $('#results').append(costsComparedOverviewHTML)
     $("#message").addClass('warning')
     
+    twentyfifty.comparator_pathways = ["111111111111111111111111111111111111111"]
+
     twentyfifty.cost_override_in_place_warning()
 
     all_pathways = ["chosen"].concat(twentyfifty.comparator_pathways)
@@ -58,6 +60,7 @@ class CostsComparedOverview
     @r.text(250,30,"Move your mouse over a coloured bar to see what it refers to. Click on a bar to see more detail").attr({'text-anchor':'start'})
 
     # Horizontal background boxes
+    # for code in twentyfifty.comparator_pathways
     for code in twentyfifty.comparator_pathways
      @r.rect(@x(0),@y(code),@x(maxX)-@x(0),@y.rangeBand()).attr({'fill':'#ddd','stroke':'none'})
 
@@ -66,8 +69,8 @@ class CostsComparedOverview
     @r.text(30,@y("chosen")+9,"Your pathway").attr({'text-anchor':'start','font-weight':'bold'})
     @r.text(30,@y("chosen")+27,"You can click on the chart to make a more\ndetailed comparison of specific costs").attr({'text-anchor':'start'})
     for code in twentyfifty.comparator_pathways
-      @r.text(30,@y(code)+9,twentyfifty.pathwayName(code,code)).attr({'text-anchor':'start','font-weight':'bold', href: twentyfifty.pathwayWikiPages(code)})
-      @r.text(30,@y(code)+27,twentyfifty.pathwayDescriptions(code,"")).attr({'text-anchor':'start',href: twentyfifty.pathwayWikiPages(code)})
+      @r.text(30,@y(code)+9,"Least-Effort Pathway").attr({'text-anchor':'start','font-weight':'bold', href: twentyfifty.pathwayWikiPages(code)})
+      @r.text(30,@y(code)+27,"A pathway that involves no steps to\naddress climate change.").attr({'text-anchor':'start',href: twentyfifty.pathwayWikiPages(code)})
     
     # Initally empty boxes
     @boxes = {}
@@ -99,7 +102,7 @@ class CostsComparedOverview
       @boxes[code] = b
 
     # The bottom x axis labels and indicators
-    @r.text(@x(0),@h-5,"The absolute cost to society of the whole energy system (mean undiscounted real pounds per person per year 2010-2050)").attr({'text-anchor':'start','font-weight':'bold','fill':'#008000'})
+    @r.text(@x(0),@h-5,"The absolute cost to society of the whole energy system (mean undiscounted real ZAR per person per year 2010-2050)").attr({'text-anchor':'start','font-weight':'bold','fill':'#008000'})
     @r.path(["M",@x(0),40,"L",@x(0),@h-28,"L",@w-30,@h-28]).attr({'stroke':'#008000','stroke-width':2})
 
     format = @x.tickFormat(10)

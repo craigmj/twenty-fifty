@@ -2,8 +2,7 @@ class CostsSensitivity
 
   costsSensitivityHTML = """
 <div class='costssensitivity'>
-  <!--
-  <ul id='comparatorchoice'>
+  <ul id='comparatorchoice' style="display:none;">
     <li>
       <a href="#" onclick="$('ul#view_comparatorchoice').toggle(); return false;">Choose comparison<img alt="Dropdown-arrow" src="/assets/images/dropdown-arrow.png" /></a>
       <ul class='choices' id='view_comparatorchoice'>
@@ -11,7 +10,6 @@ class CostsSensitivity
       </ul>
     </li>
   </ul>
-  -->
   <h1>The cost of your pathway compared with another, allowing simple variation in cost estimates.</h1>
   #{window.costCaveatHTML}
   <div id='costssensitivity'></div>
@@ -168,8 +166,8 @@ class CostsSensitivity
   updateComparator: (@comparator) =>
     twentyfifty.adjust_costs_of_pathway(@comparator) unless @comparator.total_cost_low_adjusted?
     @updateBar(@top_comparator_chart,@comparator.total_cost_low_adjusted,@comparator.total_cost_range_adjusted)
-    @top_comparator_chart.name.attr({ text:twentyfifty.pathwayName(@comparator._id,@comparator._id), href: twentyfifty.pathwayWikiPages(@comparator._id)})
-    @top_comparator_chart.description.attr({ text: twentyfifty.pathwayDescriptions(@comparator._id,""),href: twentyfifty.pathwayWikiPages(@comparator._id) })
+    @top_comparator_chart.name.attr({ text:"Least-Effort Pathway", href: twentyfifty.pathwayWikiPages(@comparator._id)})
+    @top_comparator_chart.description.attr({ text: "A pathway that involves no steps to\naddress climate change.",href: twentyfifty.pathwayWikiPages(@comparator._id) })
     @key_label.attr({text:"The cost in '#{twentyfifty.pathwayName(@comparator._id,@comparator._id)}'"})
     if @pathway?
       @updateIncrement()
@@ -198,7 +196,7 @@ class CostsSensitivity
       @increment_arrows.low_value.hide()
       @increment_arrows.high_value.hide()
       @increment_arrows.single.attr( {path:["M",@x(p.total_cost_low_adjusted-i1),@top_y('i')+@top_bar_height*0.5,"L",@x(p.total_cost_low_adjusted),@top_y('i')+@top_bar_height*0.5], stroke:color(i2), fill:color(i2)})
-      @increment_arrows.single_value.attr({x:@x(max)+3,text:"£#{Math.round(Math.abs(i1))}/person/year #{direction(i1)}"})
+      @increment_arrows.single_value.attr({x:@x(max)+3,text:"ZAR#{Math.round(Math.abs(i1))}/person/year #{direction(i1)}"})
 
       optional_arrow(@increment_arrows.single,i1)
 
@@ -210,8 +208,8 @@ class CostsSensitivity
       @increment_arrows.low.attr( {path:["M",@x(average-i2/2),@top_y('i')+@top_bar_height*0.25,"L",@x(average+i2/2),@top_y('i')+@top_bar_height*0.25], stroke:color(i2), fill:color(i2)})
       @increment_arrows.high.attr({path:["M",@x(average-i1/2),@top_y('i')+@top_bar_height*0.75,"L",@x(average+i1/2),@top_y('i')+@top_bar_height*0.75], stroke:color(i1), fill:color(i1)})
       @increment_arrows.range_message.attr({x:@x(min)-3})
-      @increment_arrows.low_value.attr({x:@x(max)+3,text:"£#{Math.round(Math.abs(i2))}/person/year #{direction(i2)} and"})
-      @increment_arrows.high_value.attr({x:@x(max)+3,text:"£#{Math.round(Math.abs(i1))}/person/year #{direction(i1)}"})
+      @increment_arrows.low_value.attr({x:@x(max)+3,text:"ZAR#{Math.round(Math.abs(i2))}/person/year #{direction(i2)} and"})
+      @increment_arrows.high_value.attr({x:@x(max)+3,text:"ZAR#{Math.round(Math.abs(i1))}/person/year #{direction(i1)}"})
       
       optional_arrow(@increment_arrows.low,i2)
       optional_arrow(@increment_arrows.high,i1)
@@ -309,7 +307,7 @@ class CostsSensitivity
     @top_y = y = d3.scale.ordinal().domain(['p','i','c']).rangeRoundBands([30,180],0.15)
     
     # The x axis labels and indicators
-    r.text(x(5000),17,"The mean cost to society of the whole energy system in undiscounted real pounds per person 2010-2050").attr({'text-anchor':'center','font-weight':'bold'})
+    r.text(x(5000),17,"The mean cost to society of the whole energy system in undiscounted real ZAR per person 2010-2050").attr({'text-anchor':'center','font-weight':'bold'})
   
     # Draw our bars
     @top_bar_height = bar_height = y.rangeBand()
@@ -387,16 +385,23 @@ class CostsSensitivity
         
       # The quick sensitivity links
       labels = cost_component_value(name)
-      component.details = r.text(x(5500),ly,"See assumptions").attr({'text-anchor':'middle',href:url})
-      component.details_box = r.rect(x(5000),py,sensitivity_label_width,sensitivity_label_height).attr({fill:'#ccc',opacity:0,cursor:'pointer',href:url})
-      component.cheap = r.text(x(6500),ly,labels.cheap).attr({'text-anchor':'middle'})
-      component.cheap_box = r.rect(x(6000)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
-      component.default = r.text(x(7500),ly,labels.default).attr({'text-anchor':'middle'})
-      component.default_box = r.rect(x(7000)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
-      component.expensive = r.text(x(8500),ly,labels.expensive).attr({'text-anchor':'middle'})
-      component.expensive_box = r.rect(x(8000)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
-      component.uncertain = r.text(x(9500),ly,"Uncertain").attr({'text-anchor':'middle'})
-      component.uncertain_box = r.rect(x(9000)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
+      bigDelta = 10000
+      smallDelta = 5000
+      xpos = 30000 
+      component.details = r.text(x(xpos + smallDelta),ly,"See assumptions").attr({'text-anchor':'middle',href:url})
+      component.details_box = r.rect(x(xpos),py,sensitivity_label_width,sensitivity_label_height).attr({fill:'#ccc',opacity:0,cursor:'pointer',href:url})
+      xpos = xpos + bigDelta
+      component.cheap = r.text(x(xpos + smallDelta),ly,labels.cheap).attr({'text-anchor':'middle'})
+      component.cheap_box = r.rect(x(xpos)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
+      xpos = xpos + bigDelta
+      component.default = r.text(x(xpos + smallDelta),ly,labels.default).attr({'text-anchor':'middle'})
+      component.default_box = r.rect(x(xpos)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
+      xpos = xpos + bigDelta
+      component.expensive = r.text(x(xpos + smallDelta),ly,labels.expensive).attr({'text-anchor':'middle'})
+      component.expensive_box = r.rect(x(xpos)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
+      xpos = xpos + bigDelta
+      component.uncertain = r.text(x(xpos + smallDelta),ly,"Uncertain").attr({'text-anchor':'middle'})
+      component.uncertain_box = r.rect(x(xpos)+1,boxy,sensitivity_label_width,sensitivity_label_height).attr(box_attr)
       
       @clickToChangeCost(component.cheap_box,name,0)
       @clickToChangeCost(component.default_box,name,"point")
