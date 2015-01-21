@@ -11,7 +11,7 @@ controller = null
 choices = null
 view = null
 sector = null
-comparator = '111111111111111111111111111111111111111'
+comparator = '11111111111111111111111111111111111111111'
 
 view_manager = null
 old_choices = []

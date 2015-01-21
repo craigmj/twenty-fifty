@@ -69,7 +69,11 @@
 
         // These are the controls
         #classic_controls
-          #demand
+          #demand            
+            %table
+              %b Growth
+              - structure.growth_choices.each do |choice|
+                = classic_table_row_for_choice choice
             %table
               %b Demand
               - structure.demand_choices.each do |choice|

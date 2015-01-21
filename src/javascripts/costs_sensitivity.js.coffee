@@ -6,7 +6,7 @@ class CostsSensitivity
     <li>
       <a href="#" onclick="$('ul#view_comparatorchoice').toggle(); return false;">Choose comparison<img alt="Dropdown-arrow" src="/assets/images/dropdown-arrow.png" /></a>
       <ul class='choices' id='view_comparatorchoice'>
-        <li><a href="#" onclick="twentyfifty.switchComparator('111111111111111111111111111111111111111');$('ul#view_comparatorchoice').toggle(); return false;">Doesn't tackle climate change (All level 1)</a></li>
+        <li><a href="#" onclick="twentyfifty.switchComparator('11111111111111111111111111111111111111111');$('ul#view_comparatorchoice').toggle(); return false;">Doesn't tackle climate change (All level 1)</a></li>
       </ul>
     </li>
   </ul>

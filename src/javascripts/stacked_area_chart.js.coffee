@@ -208,11 +208,17 @@ window.timeSeriesStackedAreaChart = () ->
         negative_series = []
         total_series = []
 
+        alltotal_series = {}
+
         # Reformat the data to be more useful
         for series in data.entries()
           series.value = series.value.map( (p,i) -> {x: data_first_year + (i*data_year_interval), y: p }  )
           total = 0
-          total+= p.y for p in series.value
+          for p in series.value
+            total+= p.y 
+            if not alltotal_series[p.x]?
+              alltotal_series[p.x] = 0
+            alltotal_series[p.x] += p.y
           series.total = total
 
           # Put the series into different groups based on whether positive or negative, or a total line
@@ -226,6 +232,12 @@ window.timeSeriesStackedAreaChart = () ->
             else
               negative_series.push(series)
 
+        ats = []
+        for i,v of alltotal_series
+          ats.push({"x":i,"y":v})
+        alltotal_series = {
+          "value": ats
+        }
         # Stack the data separately for positive and negative values and then combine
         # (creates a y0 for each data point)
         stacked_data = stack(positive_series.sort( (a,b) -> d3.descending(a.total, b.total)))
@@ -290,6 +302,7 @@ window.timeSeriesStackedAreaChart = () ->
 
         svg.select("rec.backgroundrect").attr("width", width).attr("height", height)
 
+
         # Update the area paths
         areas = g.select('g.series').selectAll("path")
           .data(Object, (d) -> d.key)
@@ -331,6 +344,8 @@ window.timeSeriesStackedAreaChart = () ->
               g.selectAll(".#{c}.linelabel").attr("display","none")
               # And remove the white background
               g.selectAll(".labelbackground").remove()
+            dataTable(alltotal_series, "total")
+            return
           )
 
         areas.transition()
@@ -537,6 +552,7 @@ window.timeSeriesStackedAreaChart = () ->
               ;
 
 
+
         dataTable = (series, seriesclass) ->
             # Add the numbers at the bottom
             labels = series.value
@@ -563,6 +579,10 @@ window.timeSeriesStackedAreaChart = () ->
                 else
                   "none"
               )
+
+        # show totals
+        dataTable(alltotal_series, "total")
+        
 
         removeDataTable = () ->
           g.selectAll(".seriesValue").remove()

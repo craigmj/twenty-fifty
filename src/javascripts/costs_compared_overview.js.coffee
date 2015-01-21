@@ -43,7 +43,7 @@ class CostsComparedOverview
     $('#results').append(costsComparedOverviewHTML)
     $("#message").addClass('warning')
     
-    twentyfifty.comparator_pathways = ["111111111111111111111111111111111111111"]
+    twentyfifty.comparator_pathways = ["11111111111111111111111111111111111111111"]
 
     twentyfifty.cost_override_in_place_warning()
 
