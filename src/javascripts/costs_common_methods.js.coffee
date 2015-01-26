@@ -72,6 +72,7 @@ cost_categories =
   "Oil Imports":"Fossil Fuels"
   "Gas Imports":"Fossil Fuels"
   "Finance cost" : "Finance"
+  "Electricity" : "Nuclear"
   "Total":"Total"
 
 costs_in_category = (desired_category) ->

@@ -26,8 +26,7 @@ class EnergySecurity
     element.append("<p>This tool does not model the hourly, daily or even seasonal operation of the electricity grid. It presents annual averages. Therefore it does not correctly represent the peaks and troughs of electricity demand.<p>")
     element.append("<p>To go some way to addressing this flaw, the tool applies a simulated stress test to your pathway of five cold, almost windless, days.")
     element.append("In this case, the stress test implies that #{Math.round(@pathway.electricity.peaking)} GW of additional peaking plant may be required for supply to meet demand over that period.</p>")
-    element.append("<p>You can influence the amount of peaking plant by changing your choice level of 'storage, demand shifting & interconnection' below right, or by reducing the amount of intermittent renewable generation, or by reducing the demand for electricity</p>")
-    
+
   updateImportsSection: () ->
     element = $('#imports')
     element.empty()
