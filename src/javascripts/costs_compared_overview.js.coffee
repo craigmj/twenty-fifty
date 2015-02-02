@@ -173,21 +173,21 @@ class CostsComparedOverview
     # @boxes_range[_id].attr({x:@x(total_cost),width: @x(total_range) - @x(0)})
     
     
-    console.log("costs_compared_overview.js.coffee:updateBar() : pathway=", pathway)
-    console.log("categories = ", categories)
-    console.log("categorised_costs = ", pathway.categorised_costs)
+    console.log?("costs_compared_overview.js.coffee:updateBar() : pathway=", pathway)
+    console.log?("categories = ", categories)
+    console.log?("categorised_costs = ", pathway.categorised_costs)
     categorised_costs = pathway.categorised_costs
 
     b = @boxes[_id]
     _x = 0
     for category in categories
-      console.log("costs_compared_overview.js.coffee::updateBar() : category=#{category}, categorised_costs = ", categorised_costs[category])
+      console.log?("costs_compared_overview.js.coffee::updateBar() : category=#{category}, categorised_costs = ", categorised_costs[category])
       cost = categorised_costs[category]
       if not cost?
-        console.error("cost is not defined for category #{category}")
+        console.error?("cost is not defined for category #{category}")
         continue
       if not cost.low?
-        console.log("cost.low is not defined for category #{category}: cost=", cost)
+        console.log?("cost.low is not defined for category #{category}: cost=", cost)
         cost.low = 0
       b[category].low.attr({x: @x(_x), width: @x(cost.low) - @x(0)})
       if cost.low > 1
