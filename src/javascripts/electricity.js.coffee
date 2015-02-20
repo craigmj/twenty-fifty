@@ -13,13 +13,13 @@ class Electricity
     @demand_chart = timeSeriesStackedAreaChart()
       .title("Electricity Demand")
       .unit('PJ/yr')
-      .max_value(15000)
+      .max_value(8000)
 
     @supply_chart = timeSeriesStackedAreaChart()
       .title("Electrity Supply")
       .unit('PJ/yr')
       .total_label('Total')
-      .max_value(15000)
+      .max_value(8000)
 
     @capacity_chart = timeSeriesStackedAreaChart()
       .title("Installed Capacity")
