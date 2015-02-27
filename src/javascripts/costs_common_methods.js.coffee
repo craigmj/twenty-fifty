@@ -83,13 +83,12 @@ costs_in_category = (desired_category) ->
   costs
 
 group_costs_of_pathway = (pathway) ->
-  console.log("costs_common_methods.js.coffee::group_costs_of_pathway")
   adjust_costs_of_pathway(pathway) unless pathway.total_cost_low_adjusted?
   categorised_costs = {}
   for own name, values of pathway.cost_components
     #unless name == 'Finance cost' # Reallocating this
     category_name = cost_categories[name]
-    console.log("name = #{name}, category_name = #{category_name}")
+    # console.log("name = #{name}, category_name = #{category_name}")
     category = categorised_costs[category_name]
     
     unless category?
@@ -120,10 +119,8 @@ cost_override_in_place_warning = () ->
       break
 
 adjust_costs_of_pathway = (pathway) ->
-  # console.log("costs_common_methods.js.coffee::adjust_costs_of_pathway()")
   total = { low: 0, range: 0, high: 0, finance_max:0}
   for own name,values of pathway.cost_components
-    # console.log name, values if name == "Conventional thermal plant"
     #unless name == 'Finance cost'
     fraction_of_width = jQuery.jStorage.get(name,null)
     # Check if someone has set a preference

@@ -11,14 +11,15 @@ window.timeSeriesStackedAreaChart = () ->
 
   x_center = (width-margin.left-margin.right)/2
 
+  chart_first_year = 2006
   title = ""
   unit = "TWh/yr"
-  data_first_year = 2010
+  data_first_year = chart_first_year
   data_last_year = 2050
   data_year_interval = 5
   min_value = 0
   max_value = 4000
-  min_year = 2010
+  min_year = chart_first_year
   max_year = 2050
   total_label = "Total"
 
