@@ -23,6 +23,8 @@ window.timeSeriesStackedAreaChart = () ->
   max_year = 2050
   total_label = "Total"
 
+  alltotal_series = {}
+
   color_classes = {
     'Agriculture': 'agriculture'
     'Agriculture and land use': 'agriculture'
