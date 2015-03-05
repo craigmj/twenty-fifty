@@ -133,7 +133,8 @@ url = (options = {}) ->
 
 go = (index,level) ->
   old_choices = choices.slice(0)
-  if index <= 15 && index !=3 && level > 1 && Math.ceil(choices[index]) == level
+  # In the South Africa model, we don't permit partial values for pathways
+  if false && index <= 15 && index !=3 && level > 1 && Math.ceil(choices[index]) == level
     choices[index] = Math.round((choices[index] - 0.1)*10)/10
   else
     choices[index] = level

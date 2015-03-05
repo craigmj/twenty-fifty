@@ -71,6 +71,14 @@ class PrimaryEnergy
         #   @textContent = "#{i(t)}% reduction 1990-2050"
       )
 
+    txt = document.getElementById('emissions_chart_ppd')
+    if null==txt
+      txt = $('<div id="emissions_chart_ppd" style="margin-left: 2em;">' +
+          '<div style="display:inline-block; background-color:#75bf75; width:2em; ' +
+          'height:2em; position:relative; top:0.7em; margin-right: 1em;"></div>' +
+          'The National GHG Emissions Trajectory Range: Peak, Plateau and Decline (PPD)</div>')
+      $('#emissions_chart').append(txt)
+
   zoom: () ->
     d3.select("#demand_chart")
       .attr("style", "width: 60%")

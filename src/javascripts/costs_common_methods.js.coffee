@@ -27,10 +27,10 @@ window.costCaveatHTML = """
 """
 
 window.costEssentialNotesHTML = """
-  <div id='essentialnotes'>
+  <!--div id='essentialnotes'>
     Note: The cost of failing to tackle climate change is not included. Some pathways, including the 'All at Level 1' pathway shown here, fail to tackle climate change. The Stern review estimated that failing to tackle climate change could reduce global GDP by up to 20% (equivalent to up to &pound;6500 per person per year on top of the cost of the energy system included in the chart above). Nor are the costs of travelling less, being colder, or consuming less included.
     <a href="#" onclick="$.jStorage.deleteKey('CostCaveatShown');$('#cost_caveats').show(); return false;">Show the caveats again</a>
-  </div>
+  </div-->
 """
 
 cost_categories =
@@ -83,13 +83,12 @@ costs_in_category = (desired_category) ->
   costs
 
 group_costs_of_pathway = (pathway) ->
-  console.log("costs_common_methods.js.coffee::group_costs_of_pathway")
   adjust_costs_of_pathway(pathway) unless pathway.total_cost_low_adjusted?
   categorised_costs = {}
   for own name, values of pathway.cost_components
     #unless name == 'Finance cost' # Reallocating this
     category_name = cost_categories[name]
-    console.log("name = #{name}, category_name = #{category_name}")
+    # console.log("name = #{name}, category_name = #{category_name}")
     category = categorised_costs[category_name]
     
     unless category?
@@ -120,10 +119,8 @@ cost_override_in_place_warning = () ->
       break
 
 adjust_costs_of_pathway = (pathway) ->
-  # console.log("costs_common_methods.js.coffee::adjust_costs_of_pathway()")
   total = { low: 0, range: 0, high: 0, finance_max:0}
   for own name,values of pathway.cost_components
-    # console.log name, values if name == "Conventional thermal plant"
     #unless name == 'Finance cost'
     fraction_of_width = jQuery.jStorage.get(name,null)
     # Check if someone has set a preference
