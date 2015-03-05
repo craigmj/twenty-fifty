@@ -11,7 +11,7 @@ window.timeSeriesStackedAreaChart = () ->
 
   x_center = (width-margin.left-margin.right)/2
 
-  chart_first_year = 2006
+  chart_first_year = 2010
   title = ""
   unit = "TWh/yr"
   data_first_year = chart_first_year
