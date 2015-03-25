@@ -22,7 +22,7 @@ class Electricity
       .max_value(8000)
 
     @capacity_chart = timeSeriesStackedAreaChart()
-      .title("Installed Capacity")
+      .title("Available Capacity")
       .unit('GW')
       .total_label('Total')
       .max_value(1000)

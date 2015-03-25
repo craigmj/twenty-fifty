@@ -35,7 +35,7 @@ class EnergySecurity
     element.append("<p>The calculator assumes that any available biomass is preferred over fossil fuels and that domestically produced fuels are preferred over imports. It assumes that fossil fuels are imported to cover any shortfall.</p>")
     element.append("<table class='imports'>")
     element.append("<tr><th class='description'></th><th colspan='2' class='year'>2006</th><th></th><th colspan='2' class='year'>2050</th></tr>")
-    element.append("<tr><th class='description'>Imports</th><th class='value'>TWh/yr</th><th class='value'>%</th><th></th><th class='value'>TWh/yr</th><th class='value'>%</th></tr>")
+    element.append("<tr><th class='description'>Imports</th><th class='value'>PJ/yr</th><th class='value'>%</th><th></th><th class='value'>PJ/yr</th><th class='value'>%</th></tr>")
     for own name, values of @pathway.imports
       element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2007'].quantity}</td><td class='value'>#{values['2007'].proportion}</td><td>&nbsp;</td><td class='value'>#{values['2050'].quantity}</td><td class='value'>#{values['2050'].proportion}</td></tr>")
     element.append("</table>")
