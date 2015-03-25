@@ -29,7 +29,7 @@ class CostsSensitivity
     "Decentralized PV",
     "Centralized PV",
     "Pumped Storage",
-    "place holder",
+    "Imports and exports",
     "Electricity Transmission and Distribution",
     "H2 Production",
     "Commercial",
@@ -46,7 +46,7 @@ class CostsSensitivity
     "Petroleum CTL",
     "Petroleum GTL",
     "Refineries",
-    "place holder",
+    "Agriculture",
     "Conventional cars, SUVs, buses, minibuses, BRT",
     "PHEV cars, SUVs, minibuses",
     "Electric cars, buses, minibuses, BRT",
@@ -56,8 +56,13 @@ class CostsSensitivity
     "Rail",
     "Coal Imports",
     "Oil Imports",
-    "Gas Imports"
+    "Gas Imports",
+    "Nuclear"
     ]
+
+  cost_components_remove = [
+    "place holder"
+  ]
   
   cost_wiki_links = {
     "Fuel cell cars and buses": '/pages/63',
@@ -231,9 +236,19 @@ class CostsSensitivity
     boxes:  ['details_box','cheap_box','default_box','expensive_box','uncertain_box']
   
   sortComponents: () ->
+    # p = @pathway.cost_components
     p = @pathway.cost_components
+  
     bar_offset = @bar_offset
-    cost_component_names.sort( (a,b) -> p[b].high_adjusted - p[a].high_adjusted)
+    cost_component_names.sort( (a,b) ->
+      if p[b]? and p[a]
+        return p[b].high_adjusted - p[a].high_adjusted
+      if p[b]
+        console.error?("p[a] = p[#{a}] == " + typeof p[a])
+        return 0
+      console.error?("p[b] = p[#{b}] == " + typeof p[b])
+      return 0
+    )
     @bottom_y = y = d3.scale.ordinal().domain(cost_component_names).rangeRoundBands([bottom_area_start,@h],0.25)
     for name in cost_component_names
       component = @components[name]
@@ -256,8 +271,12 @@ class CostsSensitivity
       @updateComponentNamed(name,update_pathway,update_comparator)
   
   updateComponentNamed: (name,update_pathway = true,update_comparator = true) ->
+      if "place holder"==name
+        console.error?("updateComponentNamed: #{name}")
+        return
       component = @components[name]
       if update_pathway && @pathway?
+
         p = @pathway.cost_components[name]
         py = @bottom_y(name)
         # Bar
@@ -268,7 +287,10 @@ class CostsSensitivity
         c = @comparator.cost_components[name]
         cy = @bottom_y(name) + @bar_offset
         # Bar
-        @updateBar(component.comparator,c.low_adjusted,c.range_adjusted)
+        if c?
+          @updateBar(component.comparator,c.low_adjusted,c.range_adjusted)
+        else
+          console.error?("c is not defined for cost_components[#{name}]")
         # Uncertainty arrow
         component.comparator.uncertainty.attr({path: ["M",@x(c.low),cy,"L",@x(c.high),cy] })
       

@@ -20,23 +20,26 @@ class EnergySecurity
   updateBalancingSection: () ->
     element = $('#balancing')
     element.empty()
-    element.append("<h2>Balancing electricity supply and demand</h2>")
-    if @pathway.electricity.automatically_built > 0
-      element.append("<p>#{Math.round(@pathway.electricity.automatically_built)} GW of conventional gas electricity generation plant has been assumed to have been built by 2050, to cover the gap between average electricity demand and the amount of low carbon generation selected in this pathway.</p>")
-    element.append("<p>This tool does not model the hourly, daily or even seasonal operation of the electricity grid. It presents annual averages. Therefore it does not correctly represent the peaks and troughs of electricity demand.<p>")
-    element.append("<p>To go some way to addressing this flaw, the tool applies a simulated stress test to your pathway of five cold, almost windless, days.")
-    element.append("In this case, the stress test implies that #{Math.round(@pathway.electricity.peaking)} GW of additional peaking plant may be required for supply to meet demand over that period.</p>")
+    # Removed per Katye telcon 2015-03-03
+    #element.append("<h2>Balancing electricity supply and demand</h2>")
+    #if @pathway.electricity.automatically_built > 0
+    #  element.append("<p>#{Math.round(@pathway.electricity.automatically_built)} GW of conventional gas electricity generation plant has been assumed to have been built by 2050, to cover the gap between average electricity demand and the amount of low carbon generation selected in this pathway.</p>")
+    #element.append("<p>This tool does not model the hourly, daily or even seasonal operation of the electricity grid. It presents annual averages. Therefore it does not correctly represent the peaks and troughs of electricity demand.<p>")
+    #element.append("<p>To go some way to addressing this flaw, the tool applies a simulated stress test to your pathway of five cold, almost windless, days.")
+    #element.append("In this case, the stress test implies that #{Math.round(@pathway.electricity.peaking)} GW of additional peaking plant may be required for supply to meet demand over that period.</p>")
 
   updateImportsSection: () ->
     element = $('#imports')
     element.empty()
     element.append("<h2>Dependence on imported energy</h2>")
-    element.append("<p>The calculator assumes that any available biomass is preferred over fossil fuels and that domestically produced fuels are preferred over imports. It assumes that fossil fuels are imported to cover any shortfall.</p>")
+    element.append("<p>The calculator assumes that any available biomass is preferred " +
+            "over fossil fuels and that domestically produced fuels are preferred over " +
+            "imports. It assumes that fossil fuels are imported to cover any shortfall.</p>")
     element.append("<table class='imports'>")
-    element.append("<tr><th class='description'></th><th colspan='2' class='year'>2006</th><th></th><th colspan='2' class='year'>2050</th></tr>")
-    element.append("<tr><th class='description'>Imports</th><th class='value'>TWh/yr</th><th class='value'>%</th><th></th><th class='value'>TWh/yr</th><th class='value'>%</th></tr>")
+    element.append("<tr><th class='description'></th><th colspan='2' class='year'>2010</th><th></th><th colspan='2' class='year'>2050</th></tr>")
+    element.append("<tr><th class='description'>Imports</th><th class='value'>PJ/yr</th><th class='value'>%</th><th></th><th class='value'>PJ/yr</th><th class='value'>%</th></tr>")
     for own name, values of @pathway.imports
-      element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2007'].quantity}</td><td class='value'>#{values['2007'].proportion}</td><td>&nbsp;</td><td class='value'>#{values['2050'].quantity}</td><td class='value'>#{values['2050'].proportion}</td></tr>")
+      element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2010'].quantity}</td><td class='value'>#{values['2010'].proportion}</td><td>&nbsp;</td><td class='value'>#{values['2050'].quantity}</td><td class='value'>#{values['2050'].proportion}</td></tr>")
     element.append("</table>")
 
   updatedDiversitySection: () ->
@@ -45,10 +48,10 @@ class EnergySecurity
     element.append("<h2>Diversity of energy sources</h2>")
     element.append("<p>There may be a benefit from maintaining a diversity of energy sources:</p>")
     element.append("<table class='imports'>")
-    element.append("<tr><th class='description'>Proportion of energy supply</th><th class='value'>2006</th><th></th><th class='value'>2050</th></tr>")
+    element.append("<tr><th class='description'>Proportion of energy supply</th><th class='value'>2010</th><th></th><th class='value'>2050</th></tr>")
     for own name, values of @pathway.diversity
-      unless values['2007'] == "0%" && values['2050'] == "0%"
-        element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2007']}</td><td>&nbsp;</td><td class='value'>#{values['2050']}</td></tr>")
+      unless values['2010'] == "0%" && values['2050'] == "0%"
+        element.append("<tr><td class='description'>#{name}</td><td class='value'>#{values['2010']}</td><td>&nbsp;</td><td class='value'>#{values['2050']}</td></tr>")
     element.append("</table>")
 
 

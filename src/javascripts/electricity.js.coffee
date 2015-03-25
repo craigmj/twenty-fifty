@@ -22,7 +22,7 @@ class Electricity
       .max_value(8000)
 
     @capacity_chart = timeSeriesStackedAreaChart()
-      .title("Installed Capacity")
+      .title("Available Capacity")
       .unit('GW')
       .total_label('Total')
       .max_value(1000)
@@ -45,6 +45,14 @@ class Electricity
 
   updateResults: (@pathway) ->
     @setup() unless @emissions_chart? && @demand_chart? && @supply_chart? && @capacity_chart?
+
+    # CMJ: Trim the 2006 data points from the graph
+    # @pathway.final_energy_demand.Total.splice(0,1)
+    # @pathway.electricity.demand.splice(0,1)
+    # @pathway.electricity.supply.splice(0,1)
+    # @pathway.electricity.capacity.splice(0,1)
+    # @pathway.ghg.Total.splice(0,1)
+    # @pathway.electricity.emissions.splice(0,1)
 
     @demand_chart.context(@pathway.final_energy_demand.Total)
 

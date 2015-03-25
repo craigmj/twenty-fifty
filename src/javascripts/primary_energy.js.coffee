@@ -74,9 +74,13 @@ class PrimaryEnergy
     txt = document.getElementById('emissions_chart_ppd')
     if null==txt
       txt = $('<div id="emissions_chart_ppd" style="margin-left: 2em;">' +
-          '<div style="display:inline-block; background-color:#75bf75; width:2em; ' +
-          'height:2em; position:relative; top:0.7em; margin-right: 1em;"></div>' +
-          'The National GHG Emissions Trajectory Range: Peak, Plateau and Decline (PPD)</div>')
+          '<table><tbody><tr><td>' +
+            '<div style="display:inline-block; background-color:#75bf75; width:2em; ' +
+            'height:2em; position:relative; top:0.7em; margin-right: 1em;"></div>' +
+          '</td><td>' +
+          'The National GHG Emissions Trajectory Range: Peak, Plateau and Decline (PPD)' +
+          '</td></tr></tbody></table>' +
+          '</div>')
       $('#emissions_chart').append(txt)
 
   zoom: () ->
