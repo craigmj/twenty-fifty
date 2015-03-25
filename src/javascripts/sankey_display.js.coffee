@@ -63,31 +63,26 @@ class SankeyDisplay
 
     @s = new Sankey()
 
-    s0 = ["coal","crude oil","natural gas","solar","wind","hydro","nuclear fuel","biomass","electricity imports","coal","synthetic fuels","crude refineries"]
-
-    s1 = ["electricity generation","synthetic fuels","coal direct","crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"]
-
-    s2 = ["coal final","natural gas final","electricity","liquid fuels","biomass final"]
-
-    s3 = ["industry","households","transport","agriculture","commercial","losses"]
+    s0 = ["crude oil","coal","natural gas","biomass","nuclear fuel","solar","wind","hydro","electricity exports","electricity imports"]
+    s1= ["crude refineries","coal direct", "synthetic fuels", 
+    "biofuels refining","natural gas direct","biomass direct","electricity generation",
+      "electricity exports 2"
+    ]
+    s2 = ["coal final","liquid fuels","natural gas final","biomass final","electricity"]
+    s3 = ["households","transport","agriculture","commercial","industry",
+    "coal exports","losses"]
     
-    if not @lowercase 
-       @s.stack(0, ["Coal","Crude oil","Natural gas","Solar","Wind","Hydro","Nuclear fuel","Biomass","electricity imports","coal","synthetic fuels","crude refineries"])
-       @s.stack(1, ["Electricity generation","Synthetic fuels","coal direct","Crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
-       @s.stack(2, ["coal final","natural gas final","electricity","losses","liquid fuels","biomass final"])
-       @s.stack(3, ["industry","households","transport","agriculture","commercial"])
-    else
-      @s.stack(0, s0)
-      @s.stack(1, s1)
-      @s.stack(2, s2)
-      @s.stack(3, s3)
+    @s.stack(0, s0)
+    @s.stack(1, s1)
+    @s.stack(2, s2)
+    @s.stack(3, s3)
 
 
     
     maxTWh = 35000
     pixels_per_TWh = $('#sankey').height() / maxTWh
 
-    @s.y_space = Math.round(100 * pixels_per_TWh)
+    @s.y_space = Math.round(600 * pixels_per_TWh)
     @s.right_margin = 250
     @s.left_margin = 150
 
@@ -99,14 +94,14 @@ class SankeyDisplay
           do (b)->
             if b?
               total += b.size()
-        console.log?("Total boxset size for ", boxset, " = ", total)
+        # console.log?("Total boxset size for ", boxset, " = ", total)
         space = ($('#sankey').height()/3 - @s.y_space) / (boxset.length-1)
         # space  = 100
         console.log?("space = #{space}")
         y = 0
         for b in boxset 
           do (b)=>
-            console.log?("b=", b, ", y=#{y}")
+            # console.log?("b=", b, ", y=#{y}")
             if b?
               if 0==y
                 y = @s.y_space
