@@ -63,136 +63,70 @@ class SankeyDisplay
 
     @s = new Sankey()
 
+    s0 = ["coal","crude oil","natural gas","solar","wind","hydro","nuclear fuel","biomass","electricity imports","coal","synthetic fuels","crude refineries"]
+
+    s1 = ["electricity generation","synthetic fuels","coal direct","crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"]
+
+    s2 = ["coal final","natural gas final","electricity","liquid fuels","biomass final"]
+
+    s3 = ["industry","households","transport","agriculture","commercial","losses"]
+    
     if not @lowercase 
        @s.stack(0, ["Coal","Crude oil","Natural gas","Solar","Wind","Hydro","Nuclear fuel","Biomass","electricity imports","coal","synthetic fuels","crude refineries"])
        @s.stack(1, ["Electricity generation","Synthetic fuels","coal direct","Crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
        @s.stack(2, ["coal final","natural gas final","electricity","losses","liquid fuels","biomass final"])
        @s.stack(3, ["industry","households","transport","agriculture","commercial"])
     else
-      @s.stack(0, ["coal","crude oil","natural gas","solar","wind","hydro","nuclear fuel","biomass","electricity imports","coal","synthetic fuels","crude refineries"])
-      @s.stack(1, ["electricity generation","synthetic fuels","coal direct","crude refineries","natural gas direct","electricity generation","biofuels refining","biomass direct","electricity imports 2","coal exports"])
-      @s.stack(2, ["coal final","natural gas final","electricity","liquid fuels","biomass final"])
-      @s.stack(3, ["industry","households","transport","agriculture","commercial","losses"])
+      @s.stack(0, s0)
+      @s.stack(1, s1)
+      @s.stack(2, s2)
+      @s.stack(3, s3)
 
-    # @s.stack(0,[
-    #   "Pumped heat",
-    #   "Solar",
-    #   "Wind",
-    #   "Tidal",
-    #   "Wave",
-    #   "Geothermal",
-    #   "Hydro",
-    #   "Electricity imports",
-    #   "Nuclear",
-    #   "Coal reserves",
-    #   "Coal imports",
-    #   "Biomass imports",
-    #   "Oil reserves",
-    #   "Oil imports",
-    #   "Biofuel imports",
-    #   "Gas reserves",
-    #   "Gas imports",
-    #   "UK land based bioenergy",
-    #   "Agricultural 'waste'",
-    #   "Other waste",
-    #   "Marine algae"
-    # ])
+
     
-    # @s.stack(1,["Coal"],"Coal reserves")
-    # @s.stack(1,["Oil"],"Oil reserves")
-    # @s.stack(1,["Natural Gas"],"Gas reserves")
-    # @s.stack(1,["Bio-conversion"],"UK land based bioenergy")
-    
-    # @s.stack(2,["Solar Thermal", "Solar PV"],"Solar")
-    # @s.stack(2,[
-    #   "Solid",
-    #   "Liquid",
-    #   "Gas"
-    # ],"Coal")
-    
-    # @s.stack(3,[
-    #   "Thermal generation",
-    #   "CHP"
-    # ],"Nuclear")
-    
-    # @s.stack(4,["Electricity grid","District heating"],"Wind")
-    
-    # @s.stack(5,["H2 conversion"],"Electricity grid")
-    
-    # @s.stack(6,["H2"],"H2 conversion")
-    
-    # @s.stack(7,[
-    #   "Heating and cooling - homes",
-    #   "Heating and cooling - commercial",
-    #   "Lighting & appliances - homes",
-    #   "Lighting & appliances - commercial",
-    #   "Industry",
-    #   "Road transport",
-    #   "Rail transport",
-    #   "Domestic aviation",
-    #   "International aviation",
-    #   "National navigation",
-    #   "International shipping",
-    #   "Agriculture",
-    #   "Geosequestration",
-    #   "Over generation / exports",
-    #   #"Exports",
-    #   "Losses"
-    # ])
-    
+    maxTWh = 35000
+    pixels_per_TWh = $('#sankey').height() / maxTWh
+
+    @s.y_space = Math.round(100 * pixels_per_TWh)
+    @s.right_margin = 250
+    @s.left_margin = 150
+
     # # Nudge
-    # @s.nudge_boxes_callback = () ->
+    @s.nudge_boxes_callback = () =>
+      spread = (boxset)=>
+        total = 0
+        for b in boxset 
+          do (b)->
+            if b?
+              total += b.size()
+        console.log?("Total boxset size for ", boxset, " = ", total)
+        space = ($('#sankey').height()/3 - @s.y_space) / (boxset.length-1)
+        # space  = 100
+        console.log?("space = #{space}")
+        y = 0
+        for b in boxset 
+          do (b)=>
+            console.log?("b=", b, ", y=#{y}")
+            if b?
+              if 0==y
+                y = @s.y_space
+              else
+                y += space
+              b.y = y
+              y += b.size()
+            return
+
+
     #   this.boxes["Losses"].y =  this.boxes["Marine algae"].b() - this.boxes["Losses"].size()
     #   # @s.boxes["Exports"].y =  @s.boxes["Losses"].y - @s.boxes["Exports"].size() - y_space)
     #   # @s.boxes["Over generation / exports"].y =  @s.boxes["Exports"].y - @s.boxes["Over generation / exports"].size() - y_space)
+      spreadBoxes = (set)=>
+        console.log("set=", set)
+        spread(@s.boxes[i] for i in set)
+      spreadBoxes(s) for s in [s0, s1, s2, s3]
     
     # # Colours
     @s.setColors({
-    #   "Coal reserves":"#8F6F38",
-    #    "Coal":"#8F6F38", 
-    #   "Coal imports":"#8F6F38",
-
-    #   "Oil reserves":"#A99268", 
-    #   "Oil":"#A99268", 
-    #   "Oil imports":"#A99268", 
-
-    #   "Gas reserves":"#DDD4C4", 
-    #   "Natural Gas":"#DDD4C4", 
-    #   "Gas imports":"#DDD4C4", 
-
-    #   "Solar":"#F6FF00", 
-    #   "Solar Thermal":"#F6FF00",
-    #   "Solar PV":"#F6FF00",
-
-    #   "UK land based bioenergy":"#30FF00", 
-    #   "Bio-conversion":"#30FF00", 
-    #   "Marine algae":"#30FF00", 
-    #   "Agricultural 'waste'":"#30FF00", 
-    #   "Other waste":"#30FF00", 
-    #   "Biomass imports":"#30FF00", 
-    #   "Biofuel imports":"#30FF00", 
-
-    #   "Solid":"#557731", 
-    #   "Liquid":"#7D9763", 
-    #   "Gas":"#BCC2AD", 
-
-    #   "Electricity grid":"#0000FF",
-    #   "Thermal generation":"#0000FF", 
-    #   "CHP":"#FF0000", 
-    #   "Nuclear":"#E2ABDB", 
-
-    #   "District heating":"#FF0000", 
-    #   "Pumped heat":"#FF0000", 
-    #   "Useful district heat":"#FF0000",
-    #   "CHP Heat":"#FF0000",
-
-    #   "Electricity imports":"#0000FF", 
-    #   "Wind":"#C7E7E6", 
-    #   "Tidal":"#C7E7E6", 
-    #   "Wave":"#C7E7E6", 
-    #   "Geothermal":"#C7E7E6", 
-    #   "Hydro":"#C7E7E6", 
-
     #   "H2 conversion":"#FF6FCF", 
     #   "Final electricity":"#0000FF", 
     #   "Over generation / exports":"#0000FF", 
@@ -211,12 +145,7 @@ class SankeyDisplay
       # @recolour(@boxes["Losses"].left_lines,"#ddd")
       # @recolour(@boxes["District heating"].left_lines,"#FF0000")
       # @recolour(@boxes["Electricity grid"].left_lines,"#0000FF")
-    
-    pixels_per_TWh = $('#sankey').height() / 35000
 
-    @s.y_space = Math.round(100 * pixels_per_TWh)
-    @s.right_margin = 250
-    @s.left_margin = 150
     
     @s.convert_flow_values_callback = (flow) ->
       return flow * pixels_per_TWh # Pixels per TWh
