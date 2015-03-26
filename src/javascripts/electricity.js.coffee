@@ -16,7 +16,7 @@ class Electricity
       .max_value(8000)
 
     @supply_chart = timeSeriesStackedAreaChart()
-      .title("Electrity Supply")
+      .title("Electricity Supply")
       .unit('PJ/yr')
       .total_label('Total')
       .max_value(8000)
