@@ -27,6 +27,12 @@ module Helper
       @group = choice.group
       groupRow = "<tr><td colspan='6' class='groupname'>#{choice.group}</td></tr>"
     end
+    # CMJ150327
+    # Choice 13 is Waste Conversion and Biofuels. We don't allow the user to set this at all
+    # - we've basically removed it as an option from the calculator
+    if 13==choice.number
+      return groupRow
+    end
     row = ["<td class='name'><a href='/assets/onepage/#{choice.doc}' target='_new' onmouseover='twentyfifty.startDemo(#{choice.number}); return true;' onmouseout='twentyfifty.stopDemo(#{choice.number});return true;'>#{choice.name}</a></td>", "<td class='help'><a title='Click for more detail on what choices #{choice.levels.to_a.join(' ')} mean.' href='/assets/onepage/#{choice.doc}' target='_new'>?</a></td>"]
     choice.levels.each.with_index do |level,i|
       row << "<td class='choice'><a href='#' data-choicenumber='#{choice.number}' data-choicelevel='#{i+1}' id='c#{choice.number}l#{i+1}' title='#{choice.descriptions[i]}' class='choiceLink' >#{level}</a></td>"

@@ -233,7 +233,6 @@ loadMainPathway = (pushState = true) ->
           high = pt
         return [low,pt,high]
       for k,v of cc
-        console.log("k = #{k}, v=", v)
         for prefix in ['', 'finance_']
           [v[prefix + "low"], v[prefix+"point"], v[prefix+"high"]] = 
             fix_low_high(v[prefix + "low"], v[prefix+"point"], v[prefix+"high"])
@@ -248,7 +247,6 @@ loadMainPathway = (pushState = true) ->
           # CMJ150107 - CostComponents fixes for low and point
           # data["cost_components"] = fix_data_cost_components(data["cost_components"])
           # CMJ150107 - Making these fixes in model_result.rb now
-          console.log("data['cost_components'] = ", data["cost_components"])
           if data._id == codeForChoices()
             view_manager.updateResults(data)
             $('#calculating').hide()
