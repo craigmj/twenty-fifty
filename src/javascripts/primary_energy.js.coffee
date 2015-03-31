@@ -34,12 +34,24 @@ class PrimaryEnergy
     @primary_energy_chart = null
     @emissions_chart = null
 
+  fixGraphData: (map)->
+    out = {}
+    for k,v of map
+      if not ("0"==k)
+        out[k] = v
+    out
+
   updateResults: (@pathway) ->
     @setup() unless @emissions_chart? && @final_energy_chart? && @primary_energy_chart?
+
+    @pathway.primary_energy_supply = @fixGraphData(@pathway.primary_energy_supply)
+    @pathway.final_energy_demand = @fixGraphData(@pathway.final_energy_demand)
 
     d3.select('#demand_chart')
       .datum(d3.map(@pathway.final_energy_demand))
       .call(@final_energy_chart)
+
+    @pathway.primary_energy_supply = @fixGraphData(@pathway.primary_energy_supply)
 
     d3.select('#supply_chart')
       .datum(d3.map(@pathway.primary_energy_supply))
