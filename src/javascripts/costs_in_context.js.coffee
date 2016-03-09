@@ -3,7 +3,6 @@ costsInContextHTML = """
   <div id='cost_override_warning'>NB Some costs not on default values</div>
   <h1>
     The cost to society of your pathway. This is not your energy bill.<br>
-    For comparison, UK average GDP 2010-2050 is forecast to be roughly &pound;35000 per person.
   </h1>
   #{window.costCaveatHTML}
   <div id='costsincontext'></div>
