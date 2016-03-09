@@ -43,6 +43,7 @@ class CostsComparedOverview
     $('#results').append(costsComparedOverviewHTML)
     $("#message").addClass('warning')
     
+    ###
     twentyfifty.comparator_pathways = ["21112444314143114114314444444444443144441",
                                        "21212333321231143113111111111111111111111",
                                        "21212212221211133113313334343422213311111"]
@@ -50,7 +51,7 @@ class CostsComparedOverview
     twentyfifty.comparator_names = ["Environmental Modelling Group Example",
                                    "Ambitions Renewable",
                                    "Ambitions Demand Side Management"]
-
+    ###
 
     twentyfifty.cost_override_in_place_warning()
 

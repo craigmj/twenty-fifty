@@ -367,6 +367,15 @@ window.twentyfifty.stopDemo = stopDemo
 window.twentyfifty.views = views
 
 window.twentyfifty.pathway_names_hash = window.twentyfifty.pathway_names_hash || {}
+window.twentyfifty.pathway_names_hash["11111111111111111111111111111111111111111"] = "Least-Effort Pathway"
 window.twentyfifty.pathway_names_hash["21112444314143114114314444444444443144441"] = "Environmental Modelling Group Example"
 window.twentyfifty.pathway_names_hash["21212333321231143113111111111111111111111"] = "Ambitions Renewable"
 window.twentyfifty.pathway_names_hash["21212212221211133113313334343422213311111"] = "Ambitions Demand Side Management"
+
+window.twentyfifty.comparator_pathways = ["21112444314143114114314444444444443144441",
+                                       "21212333321231143113111111111111111111111",
+                                       "21212212221211133113313334343422213311111"]
+
+window.twentyfifty.comparator_names = ["Environmental Modelling Group Example",
+                                   "Ambitions Renewable",
+                                   "Ambitions Demand Side Management"]

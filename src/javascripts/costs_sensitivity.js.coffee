@@ -2,11 +2,14 @@ class CostsSensitivity
 
   costsSensitivityHTML = """
 <div class='costssensitivity'>
-  <ul id='comparatorchoice' style="display:none;">
+  <ul id='comparatorchoice' style="display:block;">
     <li>
       <a href="#" onclick="$('ul#view_comparatorchoice').toggle(); return false;">Choose comparison<img alt="Dropdown-arrow" src="/assets/images/dropdown-arrow.png" /></a>
       <ul class='choices' id='view_comparatorchoice'>
         <li><a href="#" onclick="twentyfifty.switchComparator('11111111111111111111111111111111111111111');$('ul#view_comparatorchoice').toggle(); return false;">Doesn't tackle climate change (All level 1)</a></li>
+        <li><a href="#" onclick="twentyfifty.switchComparator('21112444314143114114314444444444443144441');$('ul#view_comparatorchoice').toggle(); return false;">Environmental Modelling Group Example</a></li>
+        <li><a href="#" onclick="twentyfifty.switchComparator('21212333321231143113111111111111111111111');$('ul#view_comparatorchoice').toggle(); return false;">Ambitions Renewable</a></li>
+        <li><a href="#" onclick="twentyfifty.switchComparator('21212212221211133113313334343422213311111');$('ul#view_comparatorchoice').toggle(); return false;">Ambitions Demand Side Management</a></li>
       </ul>
     </li>
   </ul>
@@ -449,10 +452,10 @@ class CostsSensitivity
     @key_label = r.text(285,218,"The cost in your comparator").attr({'text-anchor':'start','font-weight':'normal'})
     r.path( ["M",250,228,"L",280,228]).attr( {stroke:'#000','arrow-end':"classic-wide-long",'arrow-start':'classic-wide-short'})
     r.text(285,228,"The range of cost estimates").attr({'text-anchor':'start','font-weight':'normal'})
-    r.text(x(7500),220,"Try different cost scenarios").attr({'text-anchor':'middle','font-weight':'bold'})
-    r.text(x(6500),233,"Cheap")
-    r.path( ["M",x(7000),233,"L",x(8000)-2,233]).attr( {stroke:'#000','arrow-end':"classic-wide-long"})
-    r.text(x(8500),233,"Expensive")
+    #r.text(x(7500),220,"Try different cost scenarios").attr({'text-anchor':'middle','font-weight':'bold'})
+    #r.text(x(6500),233,"Cheap")
+    #r.path( ["M",x(7000),233,"L",x(8000)-2,233]).attr( {stroke:'#000','arrow-end':"classic-wide-long"})
+    #r.text(x(8500),233,"Expensive")
     r.text(w-30,233,"(reset)").attr({'text-anchor':'end',cursor:'pointer'}).click( () =>
       for name in cost_component_names
         jQuery.jStorage.set(name,'point')
