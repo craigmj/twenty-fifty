@@ -32,7 +32,7 @@
             %a{href:'http://www.environment.gov.za'} The South Africa 2050 Calculator
 
           #examples
-            //%a.newdropdown{href:'#', data: {dropdown: '#savedpathway_choices'}} Examples
+            %a.newdropdown{href:'#', data: {dropdown: '#savedpathway_choices'}} Examples
 
           // To add or remove views from the web tool, alter the following section
           #views
@@ -50,14 +50,17 @@
 
         #cost_choices.dropdown
           / CMJ150107 - Context only makes sense vis-a-vis comparative scenaria
-          / %a.view{href:'#', data: {view: 'costs_in_context'}} In context
+          %a.view{href:'#', data: {view: 'costs_in_context'}} In context
           %a.view{href:'#', data: {view: 'costs_compared_overview'}} Compared
           %a.view{href:'#', data: {view: 'costs_sensitivity'}} Sensitivity
 
         #savedpathway_choices.dropdown
-          - saved_pathways.each do |name,code|
-            %a{href:"#", onclick:"twentyfifty.switchPathway('#{code}');$('ul#savedpathway_choices').toggle()"}= name
-          %a{href:"http://2050-calculator-tool-wiki.decc.gov.uk/pages/122"} More examples
+          //- saved_pathways.each do |name,code|
+          //  %a{href:"#", onclick:"twentyfifty.switchPathway('#{code}');$('ul#savedpathway_choices').toggle()"}= name
+          %a{href:'#', onclick:"twentyfifty.switchPathway('21112444314143114114314444444444443144441');$('ul#savedpathway_choices').toggle()"}= "Environmental Modelling Group Example"
+          %a{href:'#', onclick:"twentyfifty.switchPathway('21212333321231143113111111111111111111111');$('ul#savedpathway_choices').toggle()"}= "Ambitions Renewables"
+          %a{href:'#', onclick:"twentyfifty.switchPathway('21212212221211133113313334343422213311111');$('ul#savedpathway_choices').toggle()"}= "Ambitions Demand Side Management"
+          //%a{href:"http://2050-calculator-tool-wiki.decc.gov.uk/pages/122"} More examples
       
         #calculating
           %span Calculating

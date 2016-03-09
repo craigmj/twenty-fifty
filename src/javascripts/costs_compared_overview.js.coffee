@@ -43,7 +43,14 @@ class CostsComparedOverview
     $('#results').append(costsComparedOverviewHTML)
     $("#message").addClass('warning')
     
-    twentyfifty.comparator_pathways = ["11111111111111111111111111111111111111111"]
+    twentyfifty.comparator_pathways = ["21112444314143114114314444444444443144441",
+                                       "21212333321231143113111111111111111111111",
+                                       "21212212221211133113313334343422213311111"]
+
+    twentyfifty.comparator_names = ["Environmental Modelling Group Example",
+                                   "Ambitions Renewable",
+                                   "Ambitions Demand Side Management"]
+
 
     twentyfifty.cost_override_in_place_warning()
 
@@ -68,9 +75,11 @@ class CostsComparedOverview
     @r.rect(25,@y("chosen"),@x(maxX)-25,@y.rangeBand()).attr({'fill':'#FCFF9B','stroke':'none'})
     @r.text(30,@y("chosen")+9,"Your pathway").attr({'text-anchor':'start','font-weight':'bold'})
     @r.text(30,@y("chosen")+27,"You can click on the chart to make a more\ndetailed comparison of specific costs").attr({'text-anchor':'start'})
-    for code in twentyfifty.comparator_pathways
-      @r.text(30,@y(code)+9,"Least-Effort Pathway").attr({'text-anchor':'start','font-weight':'bold', href: twentyfifty.pathwayWikiPages(code)})
-      @r.text(30,@y(code)+27,"A pathway that involves no steps to\naddress climate change.").attr({'text-anchor':'start',href: twentyfifty.pathwayWikiPages(code)})
+
+    for code, index in twentyfifty.comparator_pathways
+      n = twentyfifty.comparator_names[index]
+      @r.text(30,@y(code)+9,n).attr({'text-anchor':'start','font-weight':'bold', href: twentyfifty.pathwayWikiPages(code)})
+      #@r.text(30,@y(code)+27,"A pathway that involves no steps to\naddress climate change.").attr({'text-anchor':'start',href: twentyfifty.pathwayWikiPages(code)})
     
     # Initally empty boxes
     @boxes = {}
