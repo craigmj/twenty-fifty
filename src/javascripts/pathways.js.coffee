@@ -366,3 +366,7 @@ window.twentyfifty.stopDemo = stopDemo
 
 window.twentyfifty.views = views
 
+window.twentyfifty.pathway_names_hash = window.twentyfifty.pathway_names_hash || {}
+window.twentyfifty.pathway_names_hash["21112444314143114114314444444444443144441"] = "Environmental Modelling Group Example"
+window.twentyfifty.pathway_names_hash["21212333321231143113111111111111111111111"] = "Ambitions Renewable"
+window.twentyfifty.pathway_names_hash["21212212221211133113313334343422213311111"] = "Ambitions Demand Side Management"
