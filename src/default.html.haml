@@ -13,6 +13,7 @@
 
       ga('create', 'UA-62970217-1', 'auto');
       ga('send', 'pageview');
+    %link{:type=>"text/css", :rel=>"stylesheet", :href=>"/assets/fontawesome/css/font-awesome.min.css"}
   %body
     #root
       #content
@@ -57,9 +58,26 @@
         #savedpathway_choices.dropdown
           //- saved_pathways.each do |name,code|
           //  %a{href:"#", onclick:"twentyfifty.switchPathway('#{code}');$('ul#savedpathway_choices').toggle()"}= name
-          %a{href:'#', onclick:"twentyfifty.switchPathway('21112444314143114114314444444444443144441');$('ul#savedpathway_choices').toggle()"}= "Environmental Modelling Group Example"
-          %a{href:'#', onclick:"twentyfifty.switchPathway('21212333321231143113111111111111111111111');$('ul#savedpathway_choices').toggle()"}= "Ambitions Renewables"
-          %a{href:'#', onclick:"twentyfifty.switchPathway('21212212221211133113313334343422213311111');$('ul#savedpathway_choices').toggle()"}= "Ambitions Demand Side Management"
+          %table
+            %tbody
+              %tr.pathway_choice
+                %td.pathway_link
+                  %a{href:'#', onclick:"twentyfifty.switchPathway('21112444314143114114314444444444443144441');$('ul#savedpathway_choices').toggle()"}= "Environmental Modelling Group Example" 
+                %td.pdf_link
+                  %a.fa.fa-file-pdf-o{href:"/assets/saved_pathways/exemplar_emg.pdf"}
+
+              %tr.pathway_choice
+                %td.pathway_link
+                  %a{href:'#', onclick:"twentyfifty.switchPathway('21212333321231143113311111111111111111111');$('ul#savedpathway_choices').toggle()"}= "Ambitious Renewables"
+                %td.pdf_link
+                  %a.fa.fa-file-pdf-o{href:"/assets/saved_pathways/exemplar_increased_renewables.pdf"}
+
+              %tr.pathway_choice
+                %td.pathway_link
+                  %a.pathway_link{href:'#', onclick:"twentyfifty.switchPathway('21212212221211123113313334343433333333331');$('ul#savedpathway_choices').toggle()"}= "Ambitions Demand Side Management"
+                %td.pdf_link
+                  %a.fa.fa-file-pdf-o{href:"/assets/saved_pathways/exemplar_increased_demand_side_management.pdf"}
+
           //%a{href:"http://2050-calculator-tool-wiki.decc.gov.uk/pages/122"} More examples
       
         #calculating

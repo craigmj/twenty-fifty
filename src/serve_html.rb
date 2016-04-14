@@ -11,6 +11,7 @@ class ServeHTML < Sinatra::Base
 
   set :protection, :except => :frame_options
   set :bind, '0.0.0.0'  
+  puts "Bind to 0.0.0.0"
   puts "Set frame_options off"
 
   if development?

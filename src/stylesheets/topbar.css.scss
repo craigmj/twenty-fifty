@@ -79,16 +79,15 @@
   border: solid 1px black;
   box-shadow: 0 0 5px #888;
 
-  a {
-    padding: 5px 5px 0px 5px;
-    color: white;
-    display: block;
-    text-decoration: none;
-    border-bottom: 1px solid black;
-    &:hover {
-      border-bottom: 1px solid;
+    a {
+      padding: 5px 5px 0px 5px;
+      color: #999;
+      display: block;
+      text-decoration: none;
+      &:hover{
+        color: white;
+      }
     }
-  }
 }
 
 // This needs to be at the root level for the dropdown to appear
@@ -98,5 +97,29 @@
 
 #savedpathway_choices {
   width: 200px;
+
+  .pathway_choice {
+    position: relative;
+    display: block;
+    clear: both;
+    border-bottom: 1px solid #333;
+    td {
+      position: relative;
+    }
+    &:hover {
+      background-color: #333;
+      border-bottom: 1px solid white;
+    }
+
+    .pathway_link {
+      width: 100%;
+    }
+
+    .pdf_link {
+      width: 2em;
+      font-size: 1.4em;
+      // float:right;
+    }
+  }
 }
 

@@ -21,7 +21,7 @@ Otherwise:
 # RUNNING
 
 1. cd twenty_fifty
-2. rackup
+2. rackup -o 0.0.0.0
 3. Navigate to http://0.0.0.0:9292 in your web browser
 
 # HACKING
